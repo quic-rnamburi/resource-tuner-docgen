@@ -1,0 +1,883 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Platform Abstraction Types &mdash; Userspace Resource Manager API Documentation v0.4</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=eb12ad84" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=6cc4e9c0"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extensions API Reference" href="extensions.html" />
+    <link rel="prev" title="Client API Reference" href="client.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Userspace Resource Manager
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="client.html">Client API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Platform Abstraction Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#c.OPT_WITHMAX"><code class="docutils literal notranslate"><span class="pre">OPT_WITHMAX</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.OPT_WITHMIN"><code class="docutils literal notranslate"><span class="pre">OPT_WITHMIN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.OPT_WITHREL"><code class="docutils literal notranslate"><span class="pre">OPT_WITHREL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.SET_REQUEST_PRIORITY"><code class="docutils literal notranslate"><span class="pre">SET_REQUEST_PRIORITY</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.ADD_ALLOWED_MODE"><code class="docutils literal notranslate"><span class="pre">ADD_ALLOWED_MODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.EXTRACT_REQUEST_PRIORITY"><code class="docutils literal notranslate"><span class="pre">EXTRACT_REQUEST_PRIORITY</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.EXTRACT_ALLOWED_MODES"><code class="docutils literal notranslate"><span class="pre">EXTRACT_ALLOWED_MODES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.EXTRACT_RESOURCE_CORE_VALUE"><code class="docutils literal notranslate"><span class="pre">EXTRACT_RESOURCE_CORE_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.EXTRACT_RESOURCE_CLUSTER_VALUE"><code class="docutils literal notranslate"><span class="pre">EXTRACT_RESOURCE_CLUSTER_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.EXTRACT_RESOURCE_MPAM_VALUE"><code class="docutils literal notranslate"><span class="pre">EXTRACT_RESOURCE_MPAM_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.SET_RESOURCE_CORE_VALUE"><code class="docutils literal notranslate"><span class="pre">SET_RESOURCE_CORE_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.SET_RESOURCE_CLUSTER_VALUE"><code class="docutils literal notranslate"><span class="pre">SET_RESOURCE_CLUSTER_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.SET_RESOURCE_MPAM_VALUE"><code class="docutils literal notranslate"><span class="pre">SET_RESOURCE_MPAM_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.GET_SIGNAL_ID"><code class="docutils literal notranslate"><span class="pre">GET_SIGNAL_ID</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.GET_SIGNAL_TYPE"><code class="docutils literal notranslate"><span class="pre">GET_SIGNAL_TYPE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.CONSTRUCT_RES_CODE"><code class="docutils literal notranslate"><span class="pre">CONSTRUCT_RES_CODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.CONSTRUCT_SIG_CODE"><code class="docutils literal notranslate"><span class="pre">CONSTRUCT_SIG_CODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.CUSTOM"><code class="docutils literal notranslate"><span class="pre">CUSTOM</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.RES_CODE_LIST"><code class="docutils literal notranslate"><span class="pre">RES_CODE_LIST</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.X"><code class="docutils literal notranslate"><span class="pre">X</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv415RequestPriority"><code class="docutils literal notranslate"><span class="pre">RequestPriority</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15RequestPriority17REQ_PRIORITY_HIGHE"><code class="docutils literal notranslate"><span class="pre">REQ_PRIORITY_HIGH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15RequestPriority16REQ_PRIORITY_LOWE"><code class="docutils literal notranslate"><span class="pre">REQ_PRIORITY_LOW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15RequestPriority27NUMBER_OF_RQUEST_PRIORITIESE"><code class="docutils literal notranslate"><span class="pre">NUMBER_OF_RQUEST_PRIORITIES</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv45Modes"><code class="docutils literal notranslate"><span class="pre">Modes</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N5Modes11MODE_RESUMEE"><code class="docutils literal notranslate"><span class="pre">MODE_RESUME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N5Modes12MODE_SUSPENDE"><code class="docutils literal notranslate"><span class="pre">MODE_SUSPEND</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N5Modes9MODE_DOZEE"><code class="docutils literal notranslate"><span class="pre">MODE_DOZE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv411ResCodesDef"><code class="docutils literal notranslate"><span class="pre">ResCodesDef</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18RES_SCALE_MIN_FREQE"><code class="docutils literal notranslate"><span class="pre">RES_SCALE_MIN_FREQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18RES_SCALE_MAX_FREQE"><code class="docutils literal notranslate"><span class="pre">RES_SCALE_MAX_FREQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef17RES_RATE_LIMIT_USE"><code class="docutils literal notranslate"><span class="pre">RES_RATE_LIMIT_US</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef23RES_CPU_ONLINE_PER_COREE"><code class="docutils literal notranslate"><span class="pre">RES_CPU_ONLINE_PER_CORE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST0E"><code class="docutils literal notranslate"><span class="pre">RES_CPU_IDLE_DISABLE_ST0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST1E"><code class="docutils literal notranslate"><span class="pre">RES_CPU_IDLE_DISABLE_ST1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST2E"><code class="docutils literal notranslate"><span class="pre">RES_CPU_IDLE_DISABLE_ST2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MINE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_UTIL_CLAMP_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_UTIL_CLAMP_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef22RES_SCHED_ENERGY_AWAREE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_ENERGY_AWARE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef20RES_SCHED_RT_RUNTIMEE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_RT_RUNTIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19RES_CPU_DMA_LATENCYE"><code class="docutils literal notranslate"><span class="pre">RES_CPU_DMA_LATENCY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18RES_PM_QOS_LATENCYE"><code class="docutils literal notranslate"><span class="pre">RES_PM_QOS_LATENCY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_GPU_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MINE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_GPU_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef25RES_DEVFREQ_GPU_POLL_INTVE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_GPU_POLL_INTV</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_UFS_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MINE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_UFS_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef25RES_DEVFREQ_UFS_POLL_INTVE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_UFS_POLL_INTV</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef14RES_IRQ_AFFINEE"><code class="docutils literal notranslate"><span class="pre">RES_IRQ_AFFINE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18RES_DEF_IRQ_AFFINEE"><code class="docutils literal notranslate"><span class="pre">RES_DEF_IRQ_AFFINE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef17RES_CGRP_MOVE_PIDE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MOVE_PID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef17RES_CGRP_MOVE_TIDE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MOVE_TID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18RES_CGRP_RUN_CORESE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_RUN_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef23RES_CGRP_RUN_CORES_EXCLE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_RUN_CORES_EXCL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef15RES_CGRP_FREEZEE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_FREEZE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef23RES_CGRP_LIMIT_CPU_TIMEE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_LIMIT_CPU_TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef26RES_CGRP_RUN_WHEN_CPU_IDLEE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_RUN_WHEN_CPU_IDLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MINE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_UCLAMP_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_UCLAMP_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef23RES_CGRP_REL_CPU_WEIGHTE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_REL_CPU_WEIGHT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef17RES_CGRP_HIGH_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_HIGH_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef16RES_CGRP_MAX_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MAX_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef16RES_CGRP_LOW_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_LOW_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef16RES_CGRP_MIN_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MIN_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef24RES_CGRP_SWAP_MAX_MEMORYE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_SWAP_MAX_MEMORY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18RES_CGRP_IO_WEIGHTE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_IO_WEIGHT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef20RES_CGRP_CPU_LATENCYE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_CPU_LATENCY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef25FOCUSED_CGROUP_IDENTIFIERE"><code class="docutils literal notranslate"><span class="pre">FOCUSED_CGROUP_IDENTIFIER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef24CLUSTER_LITTLE_ALL_CORESE"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_ALL_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_0E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_1E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_2E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_3E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef21CLUSTER_BIG_ALL_CORESE"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_ALL_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_0E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_1E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_2E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_3E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef22CLUSTER_PLUS_ALL_CORESE"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_ALL_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_0E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_1E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_2E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_3E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11ResCodesDef19DEFAULT_SIGNAL_TYPEE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_SIGNAL_TYPE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError16URM_SIG_CAT_TESTE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_TEST</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_GENERICE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_GENERIC</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError22URM_SIG_CAT_MULTIMEDIAE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_MULTIMEDIA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_GAMINGE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_GAMING</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_BROWSERE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_BROWSER</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_CUSTOME"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_CUSTOM</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError16URM_SIG_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError24URM_SIG_BROWSER_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_BROWSER_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError21URM_SIG_GAME_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_GAME_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError27URM_SIG_MULTIMEDIA_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_MULTIMEDIA_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError20URM_SIG_VIDEO_DECODEE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_VIDEO_DECODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError22URM_SIG_CAMERA_PREVIEWE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAMERA_PREVIEW</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError21URM_SIG_CAMERA_ENCODEE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAMERA_ENCODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError35URM_SIG_CAMERA_ENCODE_MULTI_STREAMSE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAMERA_ENCODE_MULTI_STREAMS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv4N19PhonyNameDueToError21URM_SIG_ENCODE_DECODEE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_ENCODE_DECODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv420getResCodeFromStringPKcP6int8_t"><code class="docutils literal notranslate"><span class="pre">getResCodeFromString()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv411SysResource"><code class="docutils literal notranslate"><span class="pre">SysResource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11SysResource8mResCodeE"><code class="docutils literal notranslate"><span class="pre">mResCode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11SysResource8mResInfoE"><code class="docutils literal notranslate"><span class="pre">mResInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11SysResource13mOptionalInfoE"><code class="docutils literal notranslate"><span class="pre">mOptionalInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11SysResource10mNumValuesE"><code class="docutils literal notranslate"><span class="pre">mNumValues</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11SysResource5valueE"><code class="docutils literal notranslate"><span class="pre">value</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11SysResource6valuesE"><code class="docutils literal notranslate"><span class="pre">values</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N11SysResource9mResValueE"><code class="docutils literal notranslate"><span class="pre">mResValue</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv47ResPair"><code class="docutils literal notranslate"><span class="pre">ResPair</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N7ResPair4nameE"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N7ResPair4codeE"><code class="docutils literal notranslate"><span class="pre">code</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/requests.html">Tune Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/signals.html">Signals Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/extensions.html">Extensions Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/cli.html">Client CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Userspace Resource Manager</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Platform Abstraction Types</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/platform.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="platform-abstraction-types">
+<h1>Platform Abstraction Types<a class="headerlink" href="#platform-abstraction-types" title="Link to this heading"></a></h1>
+<p>Header: <code class="docutils literal notranslate"><span class="pre">modula/Common/Include/UrmPlatformAL.h</span></code></p>
+<p>Platform-level types, enums, and macros shared between client applications
+and the URM server — including <code class="docutils literal notranslate"><span class="pre">SysResource</span></code>, <code class="docutils literal notranslate"><span class="pre">RequestPriority</span></code>, <code class="docutils literal notranslate"><span class="pre">Modes</span></code>,
+and all resource/signal code construction macros.</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.OPT_WITHMAX">
+<span class="target" id="UrmPlatformAL_8h_1a1f0b3f700e5062253381685bdade5118"></span><span class="sig-name descname"><span class="n"><span class="pre">OPT_WITHMAX</span></span></span><a class="headerlink" href="#c.OPT_WITHMAX" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.OPT_WITHMIN">
+<span class="target" id="UrmPlatformAL_8h_1af6c7543f7c615bade564676ec171d60c"></span><span class="sig-name descname"><span class="n"><span class="pre">OPT_WITHMIN</span></span></span><a class="headerlink" href="#c.OPT_WITHMIN" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.OPT_WITHREL">
+<span class="target" id="UrmPlatformAL_8h_1a7e1d119e7221502978e9d3f48bd1e773"></span><span class="sig-name descname"><span class="n"><span class="pre">OPT_WITHREL</span></span></span><a class="headerlink" href="#c.OPT_WITHREL" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.SET_REQUEST_PRIORITY">
+<span class="target" id="UrmPlatformAL_8h_1a21d7126d5e2d2677744242f33ff9bfdb"></span><span class="sig-name descname"><span class="n"><span class="pre">SET_REQUEST_PRIORITY</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">properties</span></span>, <span class="n"><span class="pre">priority</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.SET_REQUEST_PRIORITY" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ADD_ALLOWED_MODE">
+<span class="target" id="UrmPlatformAL_8h_1a62f3155a576923f30e74c26e784c781c"></span><span class="sig-name descname"><span class="n"><span class="pre">ADD_ALLOWED_MODE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">properties</span></span>, <span class="n"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ADD_ALLOWED_MODE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.EXTRACT_REQUEST_PRIORITY">
+<span class="target" id="UrmPlatformAL_8h_1adbe62ebc94a9b050b57ba484a8494bd9"></span><span class="sig-name descname"><span class="n"><span class="pre">EXTRACT_REQUEST_PRIORITY</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">properties</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.EXTRACT_REQUEST_PRIORITY" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.EXTRACT_ALLOWED_MODES">
+<span class="target" id="UrmPlatformAL_8h_1a807db422602e7c796a84d94e19cba733"></span><span class="sig-name descname"><span class="n"><span class="pre">EXTRACT_ALLOWED_MODES</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">properties</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.EXTRACT_ALLOWED_MODES" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.EXTRACT_RESOURCE_CORE_VALUE">
+<span class="target" id="UrmPlatformAL_8h_1a9f3c54ba1af5a1c319e0a7a07eae40bc"></span><span class="sig-name descname"><span class="n"><span class="pre">EXTRACT_RESOURCE_CORE_VALUE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resInfo</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.EXTRACT_RESOURCE_CORE_VALUE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.EXTRACT_RESOURCE_CLUSTER_VALUE">
+<span class="target" id="UrmPlatformAL_8h_1a687ad97cf02b23ea0b66d7f8ca643f0e"></span><span class="sig-name descname"><span class="n"><span class="pre">EXTRACT_RESOURCE_CLUSTER_VALUE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resInfo</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.EXTRACT_RESOURCE_CLUSTER_VALUE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.EXTRACT_RESOURCE_MPAM_VALUE">
+<span class="target" id="UrmPlatformAL_8h_1a05452134fbf54075393a6093a68e47e9"></span><span class="sig-name descname"><span class="n"><span class="pre">EXTRACT_RESOURCE_MPAM_VALUE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resInfo</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.EXTRACT_RESOURCE_MPAM_VALUE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.SET_RESOURCE_CORE_VALUE">
+<span class="target" id="UrmPlatformAL_8h_1aae03da4166fec3d5858ba84fa23eb2f0"></span><span class="sig-name descname"><span class="n"><span class="pre">SET_RESOURCE_CORE_VALUE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resInfo</span></span>, <span class="n"><span class="pre">newValue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.SET_RESOURCE_CORE_VALUE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.SET_RESOURCE_CLUSTER_VALUE">
+<span class="target" id="UrmPlatformAL_8h_1a8103766ccd6d6eb25a9d8fa3a14b9115"></span><span class="sig-name descname"><span class="n"><span class="pre">SET_RESOURCE_CLUSTER_VALUE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resInfo</span></span>, <span class="n"><span class="pre">newValue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.SET_RESOURCE_CLUSTER_VALUE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.SET_RESOURCE_MPAM_VALUE">
+<span class="target" id="UrmPlatformAL_8h_1afbc104de9eeb95003604e2e47338ec13"></span><span class="sig-name descname"><span class="n"><span class="pre">SET_RESOURCE_MPAM_VALUE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resInfo</span></span>, <span class="n"><span class="pre">newValue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.SET_RESOURCE_MPAM_VALUE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.GET_SIGNAL_ID">
+<span class="target" id="UrmPlatformAL_8h_1a38ff1cd01f8ad116f3c9981f0ed253e2"></span><span class="sig-name descname"><span class="n"><span class="pre">GET_SIGNAL_ID</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">sigCode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.GET_SIGNAL_ID" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.GET_SIGNAL_TYPE">
+<span class="target" id="UrmPlatformAL_8h_1a33f64fc45134ea6e454b0788d940856b"></span><span class="sig-name descname"><span class="n"><span class="pre">GET_SIGNAL_TYPE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">sigCode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.GET_SIGNAL_TYPE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CONSTRUCT_RES_CODE">
+<span class="target" id="UrmPlatformAL_8h_1aa523c2bc1e5a511c7eaf4c4f50eef6ec"></span><span class="sig-name descname"><span class="n"><span class="pre">CONSTRUCT_RES_CODE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resType</span></span>, <span class="n"><span class="pre">resCode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.CONSTRUCT_RES_CODE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CONSTRUCT_SIG_CODE">
+<span class="target" id="UrmPlatformAL_8h_1acf89da456c684f0b0e8f5204e94a833e"></span><span class="sig-name descname"><span class="n"><span class="pre">CONSTRUCT_SIG_CODE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">sigCat</span></span>, <span class="n"><span class="pre">sigID</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.CONSTRUCT_SIG_CODE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CUSTOM">
+<span class="target" id="UrmPlatformAL_8h_1a220b620f722b37408c5e593aa55580bb"></span><span class="sig-name descname"><span class="n"><span class="pre">CUSTOM</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">opCode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.CUSTOM" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.RES_CODE_LIST">
+<span class="target" id="UrmPlatformAL_8h_1aeaa52ce6079e1bbb45114b337adc5835"></span><span class="sig-name descname"><span class="n"><span class="pre">RES_CODE_LIST</span></span></span><a class="headerlink" href="#c.RES_CODE_LIST" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.X">
+<span class="target" id="UrmPlatformAL_8h_1a95c803745ff98f7b8069ba756f2a2295"></span><span class="sig-name descname"><span class="n"><span class="pre">X</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">name</span></span>, <span class="n"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.X" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp">
+<span class="target" id="UrmPlatformAL_8h_1a95c803745ff98f7b8069ba756f2a2295"></span><span class="sig-name descname"><span class="n"><span class="pre">X</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">name</span></span>, <span class="n"><span class="pre">value</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv415RequestPriority">
+<span id="_CPPv315RequestPriority"></span><span id="_CPPv215RequestPriority"></span><span class="target" id="UrmPlatformAL_8h_1a11f9c388f84ebb5b6c5b5ecf729a6814"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RequestPriority</span></span></span><a class="headerlink" href="#_CPPv415RequestPriority" title="Link to this definition"></a><br /></dt>
+<dd><p>Requests can have 2 levels of Priorities, HIGH or LOW. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15RequestPriority17REQ_PRIORITY_HIGHE">
+<span id="_CPPv3N15RequestPriority17REQ_PRIORITY_HIGHE"></span><span id="_CPPv2N15RequestPriority17REQ_PRIORITY_HIGHE"></span><span class="target" id="UrmPlatformAL_8h_1a11f9c388f84ebb5b6c5b5ecf729a6814a1a31ccc6d7ab798b82432a8d931f8143"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">REQ_PRIORITY_HIGH</span></span></span><a class="headerlink" href="#_CPPv4N15RequestPriority17REQ_PRIORITY_HIGHE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15RequestPriority16REQ_PRIORITY_LOWE">
+<span id="_CPPv3N15RequestPriority16REQ_PRIORITY_LOWE"></span><span id="_CPPv2N15RequestPriority16REQ_PRIORITY_LOWE"></span><span class="target" id="UrmPlatformAL_8h_1a11f9c388f84ebb5b6c5b5ecf729a6814a983adfb6dce425411b6eb9f3e6f43ad3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">REQ_PRIORITY_LOW</span></span></span><a class="headerlink" href="#_CPPv4N15RequestPriority16REQ_PRIORITY_LOWE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15RequestPriority27NUMBER_OF_RQUEST_PRIORITIESE">
+<span id="_CPPv3N15RequestPriority27NUMBER_OF_RQUEST_PRIORITIESE"></span><span id="_CPPv2N15RequestPriority27NUMBER_OF_RQUEST_PRIORITIESE"></span><span class="target" id="UrmPlatformAL_8h_1a11f9c388f84ebb5b6c5b5ecf729a6814a52021d9902dc1ca9eaaf2eb31a86310f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NUMBER_OF_RQUEST_PRIORITIES</span></span></span><a class="headerlink" href="#_CPPv4N15RequestPriority27NUMBER_OF_RQUEST_PRIORITIESE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv45Modes">
+<span id="_CPPv35Modes"></span><span id="_CPPv25Modes"></span><span class="target" id="UrmPlatformAL_8h_1a5ba261125d0e6e60801792a10232cc09"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Modes</span></span></span><a class="headerlink" href="#_CPPv45Modes" title="Link to this definition"></a><br /></dt>
+<dd><p>Represents the operational modes based on the device’s display state. </p>
+<p>Certain system resources are optimized only when the device display is active, primarily to conserve power. However, for critical components, tuning may be performed regardless of the display state, including during doze mode. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N5Modes11MODE_RESUMEE">
+<span id="_CPPv3N5Modes11MODE_RESUMEE"></span><span id="_CPPv2N5Modes11MODE_RESUMEE"></span><span class="target" id="UrmPlatformAL_8h_1a5ba261125d0e6e60801792a10232cc09a8cca5f402b11f1aca23ea8be1bb05575"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MODE_RESUME</span></span></span><a class="headerlink" href="#_CPPv4N5Modes11MODE_RESUMEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Tuning allowed when the display is on. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N5Modes12MODE_SUSPENDE">
+<span id="_CPPv3N5Modes12MODE_SUSPENDE"></span><span id="_CPPv2N5Modes12MODE_SUSPENDE"></span><span class="target" id="UrmPlatformAL_8h_1a5ba261125d0e6e60801792a10232cc09ac0397c3ba6bd5d17504ffbe87c867412"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MODE_SUSPEND</span></span></span><a class="headerlink" href="#_CPPv4N5Modes12MODE_SUSPENDE" title="Link to this definition"></a><br /></dt>
+<dd><p>Tuning allowed when the display is off. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N5Modes9MODE_DOZEE">
+<span id="_CPPv3N5Modes9MODE_DOZEE"></span><span id="_CPPv2N5Modes9MODE_DOZEE"></span><span class="target" id="UrmPlatformAL_8h_1a5ba261125d0e6e60801792a10232cc09af7fcb89f36c1759957d3577a0aba008d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MODE_DOZE</span></span></span><a class="headerlink" href="#_CPPv4N5Modes9MODE_DOZEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Tuning allowed during doze (low-power idle) mode. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv411ResCodesDef">
+<span id="_CPPv311ResCodesDef"></span><span id="_CPPv211ResCodesDef"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ResCodesDef</span></span></span><a class="headerlink" href="#_CPPv411ResCodesDef" title="Link to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18RES_SCALE_MIN_FREQE">
+<span id="_CPPv3N11ResCodesDef18RES_SCALE_MIN_FREQE"></span><span id="_CPPv2N11ResCodesDef18RES_SCALE_MIN_FREQE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a3e9fdb851f1f4e25b9cd84cb52c08b4e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_SCALE_MIN_FREQ</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18RES_SCALE_MIN_FREQE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18RES_SCALE_MAX_FREQE">
+<span id="_CPPv3N11ResCodesDef18RES_SCALE_MAX_FREQE"></span><span id="_CPPv2N11ResCodesDef18RES_SCALE_MAX_FREQE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a4bede444c873bdd0c2bb878e23d5f8ef"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_SCALE_MAX_FREQ</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18RES_SCALE_MAX_FREQE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef17RES_RATE_LIMIT_USE">
+<span id="_CPPv3N11ResCodesDef17RES_RATE_LIMIT_USE"></span><span id="_CPPv2N11ResCodesDef17RES_RATE_LIMIT_USE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a06af851ccb384a2ff9076a854c1d3005"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_RATE_LIMIT_US</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef17RES_RATE_LIMIT_USE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef23RES_CPU_ONLINE_PER_COREE">
+<span id="_CPPv3N11ResCodesDef23RES_CPU_ONLINE_PER_COREE"></span><span id="_CPPv2N11ResCodesDef23RES_CPU_ONLINE_PER_COREE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a32c769a7cf55d15503e50848743e41d1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CPU_ONLINE_PER_CORE</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef23RES_CPU_ONLINE_PER_COREE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST0E">
+<span id="_CPPv3N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST0E"></span><span id="_CPPv2N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST0E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a84de105796be4234a344209f472b0d82"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CPU_IDLE_DISABLE_ST0</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST0E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST1E">
+<span id="_CPPv3N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST1E"></span><span id="_CPPv2N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST1E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5abce3edd0386955b6c2250ace8ed25aa8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CPU_IDLE_DISABLE_ST1</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST1E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST2E">
+<span id="_CPPv3N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST2E"></span><span id="_CPPv2N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST2E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5ac9b62b3cced904f178f282f9068e6bd8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CPU_IDLE_DISABLE_ST2</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST2E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MINE">
+<span id="_CPPv3N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MINE"></span><span id="_CPPv2N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MINE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a12927e6bd31950ae7523e809026c3491"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_SCHED_UTIL_CLAMP_MIN</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MINE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MAXE">
+<span id="_CPPv3N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MAXE"></span><span id="_CPPv2N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MAXE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aca068793e377f68f9016722db68f2054"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_SCHED_UTIL_CLAMP_MAX</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MAXE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef22RES_SCHED_ENERGY_AWAREE">
+<span id="_CPPv3N11ResCodesDef22RES_SCHED_ENERGY_AWAREE"></span><span id="_CPPv2N11ResCodesDef22RES_SCHED_ENERGY_AWAREE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a511f105383a0b7e662fb6611a703f227"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_SCHED_ENERGY_AWARE</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef22RES_SCHED_ENERGY_AWAREE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef20RES_SCHED_RT_RUNTIMEE">
+<span id="_CPPv3N11ResCodesDef20RES_SCHED_RT_RUNTIMEE"></span><span id="_CPPv2N11ResCodesDef20RES_SCHED_RT_RUNTIMEE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aa5e6ec8043c898b1936a5d7984f29fb5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_SCHED_RT_RUNTIME</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef20RES_SCHED_RT_RUNTIMEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19RES_CPU_DMA_LATENCYE">
+<span id="_CPPv3N11ResCodesDef19RES_CPU_DMA_LATENCYE"></span><span id="_CPPv2N11ResCodesDef19RES_CPU_DMA_LATENCYE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a09f57357c4f08a9d25cc5172a6d168c1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CPU_DMA_LATENCY</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19RES_CPU_DMA_LATENCYE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18RES_PM_QOS_LATENCYE">
+<span id="_CPPv3N11ResCodesDef18RES_PM_QOS_LATENCYE"></span><span id="_CPPv2N11ResCodesDef18RES_PM_QOS_LATENCYE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a7f925a7f7557c1d52cff72fadae27b0e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_PM_QOS_LATENCY</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18RES_PM_QOS_LATENCYE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MAXE">
+<span id="_CPPv3N11ResCodesDef19RES_DEVFREQ_GPU_MAXE"></span><span id="_CPPv2N11ResCodesDef19RES_DEVFREQ_GPU_MAXE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5af6615066beac0b25739f605a22a0c785"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_DEVFREQ_GPU_MAX</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MAXE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MINE">
+<span id="_CPPv3N11ResCodesDef19RES_DEVFREQ_GPU_MINE"></span><span id="_CPPv2N11ResCodesDef19RES_DEVFREQ_GPU_MINE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a03578f730054b88209732b348f25791c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_DEVFREQ_GPU_MIN</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MINE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef25RES_DEVFREQ_GPU_POLL_INTVE">
+<span id="_CPPv3N11ResCodesDef25RES_DEVFREQ_GPU_POLL_INTVE"></span><span id="_CPPv2N11ResCodesDef25RES_DEVFREQ_GPU_POLL_INTVE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a4919f72eec47b7c3742df078671ec621"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_DEVFREQ_GPU_POLL_INTV</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef25RES_DEVFREQ_GPU_POLL_INTVE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MAXE">
+<span id="_CPPv3N11ResCodesDef19RES_DEVFREQ_UFS_MAXE"></span><span id="_CPPv2N11ResCodesDef19RES_DEVFREQ_UFS_MAXE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5ab631f62c7721b69e7811901c6ca8e610"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_DEVFREQ_UFS_MAX</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MAXE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MINE">
+<span id="_CPPv3N11ResCodesDef19RES_DEVFREQ_UFS_MINE"></span><span id="_CPPv2N11ResCodesDef19RES_DEVFREQ_UFS_MINE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a6a7951bec0f693dee6cc897a1b1e27ae"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_DEVFREQ_UFS_MIN</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MINE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef25RES_DEVFREQ_UFS_POLL_INTVE">
+<span id="_CPPv3N11ResCodesDef25RES_DEVFREQ_UFS_POLL_INTVE"></span><span id="_CPPv2N11ResCodesDef25RES_DEVFREQ_UFS_POLL_INTVE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a20bdca7fc26b2461dc9e53142f5b096c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_DEVFREQ_UFS_POLL_INTV</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef25RES_DEVFREQ_UFS_POLL_INTVE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef14RES_IRQ_AFFINEE">
+<span id="_CPPv3N11ResCodesDef14RES_IRQ_AFFINEE"></span><span id="_CPPv2N11ResCodesDef14RES_IRQ_AFFINEE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aa990869af9846bfa04dd903fbaadf049"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_IRQ_AFFINE</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef14RES_IRQ_AFFINEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18RES_DEF_IRQ_AFFINEE">
+<span id="_CPPv3N11ResCodesDef18RES_DEF_IRQ_AFFINEE"></span><span id="_CPPv2N11ResCodesDef18RES_DEF_IRQ_AFFINEE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aeacfba0dfd0605e0ffa9add58c050bd3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_DEF_IRQ_AFFINE</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18RES_DEF_IRQ_AFFINEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef17RES_CGRP_MOVE_PIDE">
+<span id="_CPPv3N11ResCodesDef17RES_CGRP_MOVE_PIDE"></span><span id="_CPPv2N11ResCodesDef17RES_CGRP_MOVE_PIDE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a273a02c1c3a75fb5ab30cf7795034733"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_MOVE_PID</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef17RES_CGRP_MOVE_PIDE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef17RES_CGRP_MOVE_TIDE">
+<span id="_CPPv3N11ResCodesDef17RES_CGRP_MOVE_TIDE"></span><span id="_CPPv2N11ResCodesDef17RES_CGRP_MOVE_TIDE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5ab1c7cb103f591cbd552cceb032649ee5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_MOVE_TID</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef17RES_CGRP_MOVE_TIDE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18RES_CGRP_RUN_CORESE">
+<span id="_CPPv3N11ResCodesDef18RES_CGRP_RUN_CORESE"></span><span id="_CPPv2N11ResCodesDef18RES_CGRP_RUN_CORESE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aefffdfcdbc98b7648375352f5842e389"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_RUN_CORES</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18RES_CGRP_RUN_CORESE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef23RES_CGRP_RUN_CORES_EXCLE">
+<span id="_CPPv3N11ResCodesDef23RES_CGRP_RUN_CORES_EXCLE"></span><span id="_CPPv2N11ResCodesDef23RES_CGRP_RUN_CORES_EXCLE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a153eab4e66446808d5133af2e31bf66b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_RUN_CORES_EXCL</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef23RES_CGRP_RUN_CORES_EXCLE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef15RES_CGRP_FREEZEE">
+<span id="_CPPv3N11ResCodesDef15RES_CGRP_FREEZEE"></span><span id="_CPPv2N11ResCodesDef15RES_CGRP_FREEZEE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5ad686a1c716c7e941be88cef5082ff82a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_FREEZE</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef15RES_CGRP_FREEZEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef23RES_CGRP_LIMIT_CPU_TIMEE">
+<span id="_CPPv3N11ResCodesDef23RES_CGRP_LIMIT_CPU_TIMEE"></span><span id="_CPPv2N11ResCodesDef23RES_CGRP_LIMIT_CPU_TIMEE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a9745167308e4ecb569ee2770b98df9b0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_LIMIT_CPU_TIME</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef23RES_CGRP_LIMIT_CPU_TIMEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef26RES_CGRP_RUN_WHEN_CPU_IDLEE">
+<span id="_CPPv3N11ResCodesDef26RES_CGRP_RUN_WHEN_CPU_IDLEE"></span><span id="_CPPv2N11ResCodesDef26RES_CGRP_RUN_WHEN_CPU_IDLEE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a9a90238447ecaa32d39cc93a5f390af1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_RUN_WHEN_CPU_IDLE</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef26RES_CGRP_RUN_WHEN_CPU_IDLEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MINE">
+<span id="_CPPv3N11ResCodesDef19RES_CGRP_UCLAMP_MINE"></span><span id="_CPPv2N11ResCodesDef19RES_CGRP_UCLAMP_MINE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a419363986e1fdf79a6b833f94a962a14"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_UCLAMP_MIN</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MINE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MAXE">
+<span id="_CPPv3N11ResCodesDef19RES_CGRP_UCLAMP_MAXE"></span><span id="_CPPv2N11ResCodesDef19RES_CGRP_UCLAMP_MAXE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a55081b7963cbcb40363640b37b1c647a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_UCLAMP_MAX</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MAXE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef23RES_CGRP_REL_CPU_WEIGHTE">
+<span id="_CPPv3N11ResCodesDef23RES_CGRP_REL_CPU_WEIGHTE"></span><span id="_CPPv2N11ResCodesDef23RES_CGRP_REL_CPU_WEIGHTE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a7802a0a206920df79bb597bcb0d4b48f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_REL_CPU_WEIGHT</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef23RES_CGRP_REL_CPU_WEIGHTE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef17RES_CGRP_HIGH_MEME">
+<span id="_CPPv3N11ResCodesDef17RES_CGRP_HIGH_MEME"></span><span id="_CPPv2N11ResCodesDef17RES_CGRP_HIGH_MEME"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a549cefb43b63227da215e4c84cc75e19"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_HIGH_MEM</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef17RES_CGRP_HIGH_MEME" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef16RES_CGRP_MAX_MEME">
+<span id="_CPPv3N11ResCodesDef16RES_CGRP_MAX_MEME"></span><span id="_CPPv2N11ResCodesDef16RES_CGRP_MAX_MEME"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a83b6f08eb200705b8c33d948827ec067"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_MAX_MEM</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef16RES_CGRP_MAX_MEME" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef16RES_CGRP_LOW_MEME">
+<span id="_CPPv3N11ResCodesDef16RES_CGRP_LOW_MEME"></span><span id="_CPPv2N11ResCodesDef16RES_CGRP_LOW_MEME"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a95d0afe208f621e32cb69a026d4773b4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_LOW_MEM</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef16RES_CGRP_LOW_MEME" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef16RES_CGRP_MIN_MEME">
+<span id="_CPPv3N11ResCodesDef16RES_CGRP_MIN_MEME"></span><span id="_CPPv2N11ResCodesDef16RES_CGRP_MIN_MEME"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5adf0e2f58061d74685aa6bbfeff493392"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_MIN_MEM</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef16RES_CGRP_MIN_MEME" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef24RES_CGRP_SWAP_MAX_MEMORYE">
+<span id="_CPPv3N11ResCodesDef24RES_CGRP_SWAP_MAX_MEMORYE"></span><span id="_CPPv2N11ResCodesDef24RES_CGRP_SWAP_MAX_MEMORYE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5ab0a9a9f817c931005ecfbf23ec84d563"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_SWAP_MAX_MEMORY</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef24RES_CGRP_SWAP_MAX_MEMORYE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18RES_CGRP_IO_WEIGHTE">
+<span id="_CPPv3N11ResCodesDef18RES_CGRP_IO_WEIGHTE"></span><span id="_CPPv2N11ResCodesDef18RES_CGRP_IO_WEIGHTE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5ae6d2e47275b80a2d95a95a4ec1130499"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_IO_WEIGHT</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18RES_CGRP_IO_WEIGHTE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef20RES_CGRP_CPU_LATENCYE">
+<span id="_CPPv3N11ResCodesDef20RES_CGRP_CPU_LATENCYE"></span><span id="_CPPv2N11ResCodesDef20RES_CGRP_CPU_LATENCYE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a06453a79182a754022aecc654d2aa915"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RES_CGRP_CPU_LATENCY</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef20RES_CGRP_CPU_LATENCYE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef25FOCUSED_CGROUP_IDENTIFIERE">
+<span id="_CPPv3N11ResCodesDef25FOCUSED_CGROUP_IDENTIFIERE"></span><span id="_CPPv2N11ResCodesDef25FOCUSED_CGROUP_IDENTIFIERE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a194e21a197c50c8408cd7bfe8cad85da"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FOCUSED_CGROUP_IDENTIFIER</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef25FOCUSED_CGROUP_IDENTIFIERE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef24CLUSTER_LITTLE_ALL_CORESE">
+<span id="_CPPv3N11ResCodesDef24CLUSTER_LITTLE_ALL_CORESE"></span><span id="_CPPv2N11ResCodesDef24CLUSTER_LITTLE_ALL_CORESE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a9006106cfa55aa394a36a15c65d649b0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_LITTLE_ALL_CORES</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef24CLUSTER_LITTLE_ALL_CORESE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_0E">
+<span id="_CPPv3N11ResCodesDef21CLUSTER_LITTLE_CORE_0E"></span><span id="_CPPv2N11ResCodesDef21CLUSTER_LITTLE_CORE_0E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a8508cb2bc8c779ee0b1aaa8dfc39a409"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_LITTLE_CORE_0</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_0E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_1E">
+<span id="_CPPv3N11ResCodesDef21CLUSTER_LITTLE_CORE_1E"></span><span id="_CPPv2N11ResCodesDef21CLUSTER_LITTLE_CORE_1E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aadbaecda62ab31d7a2ab08a648e5bf84"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_LITTLE_CORE_1</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_1E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_2E">
+<span id="_CPPv3N11ResCodesDef21CLUSTER_LITTLE_CORE_2E"></span><span id="_CPPv2N11ResCodesDef21CLUSTER_LITTLE_CORE_2E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aea765f2bb0a1729abdbb27bda09af64d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_LITTLE_CORE_2</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_2E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_3E">
+<span id="_CPPv3N11ResCodesDef21CLUSTER_LITTLE_CORE_3E"></span><span id="_CPPv2N11ResCodesDef21CLUSTER_LITTLE_CORE_3E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5af7fca962a46f370f1aee7be394605393"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_LITTLE_CORE_3</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_3E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef21CLUSTER_BIG_ALL_CORESE">
+<span id="_CPPv3N11ResCodesDef21CLUSTER_BIG_ALL_CORESE"></span><span id="_CPPv2N11ResCodesDef21CLUSTER_BIG_ALL_CORESE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5ac4b55b0ef431d00e3e3bcccc158ff059"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_BIG_ALL_CORES</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef21CLUSTER_BIG_ALL_CORESE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_0E">
+<span id="_CPPv3N11ResCodesDef18CLUSTER_BIG_CORE_0E"></span><span id="_CPPv2N11ResCodesDef18CLUSTER_BIG_CORE_0E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a24aacceb0d0962c25865007a99320f05"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_BIG_CORE_0</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_0E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_1E">
+<span id="_CPPv3N11ResCodesDef18CLUSTER_BIG_CORE_1E"></span><span id="_CPPv2N11ResCodesDef18CLUSTER_BIG_CORE_1E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5af24793d12991605e13c01404c257ebcd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_BIG_CORE_1</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_1E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_2E">
+<span id="_CPPv3N11ResCodesDef18CLUSTER_BIG_CORE_2E"></span><span id="_CPPv2N11ResCodesDef18CLUSTER_BIG_CORE_2E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a8994c74f0e14c846cc0542cffff154b3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_BIG_CORE_2</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_2E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_3E">
+<span id="_CPPv3N11ResCodesDef18CLUSTER_BIG_CORE_3E"></span><span id="_CPPv2N11ResCodesDef18CLUSTER_BIG_CORE_3E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a26eef05445927f51dd4e112f4d60876a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_BIG_CORE_3</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_3E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef22CLUSTER_PLUS_ALL_CORESE">
+<span id="_CPPv3N11ResCodesDef22CLUSTER_PLUS_ALL_CORESE"></span><span id="_CPPv2N11ResCodesDef22CLUSTER_PLUS_ALL_CORESE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a569ad2affa8723e2b34b066724e928ab"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_PLUS_ALL_CORES</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef22CLUSTER_PLUS_ALL_CORESE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_0E">
+<span id="_CPPv3N11ResCodesDef19CLUSTER_PLUS_CORE_0E"></span><span id="_CPPv2N11ResCodesDef19CLUSTER_PLUS_CORE_0E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a163798e9b927d23c07ae95ee7ea543ca"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_PLUS_CORE_0</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_0E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_1E">
+<span id="_CPPv3N11ResCodesDef19CLUSTER_PLUS_CORE_1E"></span><span id="_CPPv2N11ResCodesDef19CLUSTER_PLUS_CORE_1E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5acdf24bd466d03d03e3d485f6ca412e1b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_PLUS_CORE_1</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_1E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_2E">
+<span id="_CPPv3N11ResCodesDef19CLUSTER_PLUS_CORE_2E"></span><span id="_CPPv2N11ResCodesDef19CLUSTER_PLUS_CORE_2E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5a1e89276bc85917a652ff023fa8666dfe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_PLUS_CORE_2</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_2E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_3E">
+<span id="_CPPv3N11ResCodesDef19CLUSTER_PLUS_CORE_3E"></span><span id="_CPPv2N11ResCodesDef19CLUSTER_PLUS_CORE_3E"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5aaf9a70a931e55efccb943bbf68225c8e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLUSTER_PLUS_CORE_3</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_3E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11ResCodesDef19DEFAULT_SIGNAL_TYPEE">
+<span id="_CPPv3N11ResCodesDef19DEFAULT_SIGNAL_TYPEE"></span><span id="_CPPv2N11ResCodesDef19DEFAULT_SIGNAL_TYPEE"></span><span class="target" id="UrmPlatformAL_8h_1a8f941aa2f13ef38f3a5f84992f0848d5af09fd3770bdc0657d609c587435db6f7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DEFAULT_SIGNAL_TYPE</span></span></span><a class="headerlink" href="#_CPPv4N11ResCodesDef19DEFAULT_SIGNAL_TYPEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp">
+<span class="target" id="UrmPlatformAL_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><span class="sig-name descname"></span></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError16URM_SIG_CAT_TESTE">
+<span id="_CPPv3N19PhonyNameDueToError16URM_SIG_CAT_TESTE"></span><span id="_CPPv2N19PhonyNameDueToError16URM_SIG_CAT_TESTE"></span><span class="target" id="UrmPlatformAL_8h_1a06fc87d81c62e9abb8790b6e5713c55ba07bfc35e4f371a07f5756bf871d0bec5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAT_TEST</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError16URM_SIG_CAT_TESTE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_GENERICE">
+<span id="_CPPv3N19PhonyNameDueToError19URM_SIG_CAT_GENERICE"></span><span id="_CPPv2N19PhonyNameDueToError19URM_SIG_CAT_GENERICE"></span><span class="target" id="UrmPlatformAL_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3a56ef85c986bd57b16ce5fa7b170858"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAT_GENERIC</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_GENERICE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError22URM_SIG_CAT_MULTIMEDIAE">
+<span id="_CPPv3N19PhonyNameDueToError22URM_SIG_CAT_MULTIMEDIAE"></span><span id="_CPPv2N19PhonyNameDueToError22URM_SIG_CAT_MULTIMEDIAE"></span><span class="target" id="UrmPlatformAL_8h_1a06fc87d81c62e9abb8790b6e5713c55bac8c53f79c87634c73171c59a8df346c3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAT_MULTIMEDIA</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError22URM_SIG_CAT_MULTIMEDIAE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_GAMINGE">
+<span id="_CPPv3N19PhonyNameDueToError18URM_SIG_CAT_GAMINGE"></span><span id="_CPPv2N19PhonyNameDueToError18URM_SIG_CAT_GAMINGE"></span><span class="target" id="UrmPlatformAL_8h_1a06fc87d81c62e9abb8790b6e5713c55ba63e2d78878bab363ff40acb45072abb7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAT_GAMING</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_GAMINGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_BROWSERE">
+<span id="_CPPv3N19PhonyNameDueToError19URM_SIG_CAT_BROWSERE"></span><span id="_CPPv2N19PhonyNameDueToError19URM_SIG_CAT_BROWSERE"></span><span class="target" id="UrmPlatformAL_8h_1a06fc87d81c62e9abb8790b6e5713c55ba56df2175b32d8172c01dc6660428e6e9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAT_BROWSER</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_BROWSERE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_CUSTOME">
+<span id="_CPPv3N19PhonyNameDueToError18URM_SIG_CAT_CUSTOME"></span><span id="_CPPv2N19PhonyNameDueToError18URM_SIG_CAT_CUSTOME"></span><span class="target" id="UrmPlatformAL_8h_1a06fc87d81c62e9abb8790b6e5713c55ba0bea260f92324766e676710246227a02"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAT_CUSTOM</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_CUSTOME" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp">
+<span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7"></span><span class="sig-name descname"></span></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError16URM_SIG_APP_OPENE">
+<span id="_CPPv3N19PhonyNameDueToError16URM_SIG_APP_OPENE"></span><span id="_CPPv2N19PhonyNameDueToError16URM_SIG_APP_OPENE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7a88834ff9ea3985f91b4bb2e8fb52245e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_APP_OPEN</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError16URM_SIG_APP_OPENE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError24URM_SIG_BROWSER_APP_OPENE">
+<span id="_CPPv3N19PhonyNameDueToError24URM_SIG_BROWSER_APP_OPENE"></span><span id="_CPPv2N19PhonyNameDueToError24URM_SIG_BROWSER_APP_OPENE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7a89b8a2eb388d653af37191a3b2497117"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_BROWSER_APP_OPEN</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError24URM_SIG_BROWSER_APP_OPENE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError21URM_SIG_GAME_APP_OPENE">
+<span id="_CPPv3N19PhonyNameDueToError21URM_SIG_GAME_APP_OPENE"></span><span id="_CPPv2N19PhonyNameDueToError21URM_SIG_GAME_APP_OPENE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7a4470aeb1142fafc8bdb09d53f0b87e5a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_GAME_APP_OPEN</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError21URM_SIG_GAME_APP_OPENE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError27URM_SIG_MULTIMEDIA_APP_OPENE">
+<span id="_CPPv3N19PhonyNameDueToError27URM_SIG_MULTIMEDIA_APP_OPENE"></span><span id="_CPPv2N19PhonyNameDueToError27URM_SIG_MULTIMEDIA_APP_OPENE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7a91057ad9f072af98376d138b77ffc936"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_MULTIMEDIA_APP_OPEN</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError27URM_SIG_MULTIMEDIA_APP_OPENE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError20URM_SIG_VIDEO_DECODEE">
+<span id="_CPPv3N19PhonyNameDueToError20URM_SIG_VIDEO_DECODEE"></span><span id="_CPPv2N19PhonyNameDueToError20URM_SIG_VIDEO_DECODEE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7aec662d2fc25de5bbc742e5a3f9eb4cbb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_VIDEO_DECODE</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError20URM_SIG_VIDEO_DECODEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError22URM_SIG_CAMERA_PREVIEWE">
+<span id="_CPPv3N19PhonyNameDueToError22URM_SIG_CAMERA_PREVIEWE"></span><span id="_CPPv2N19PhonyNameDueToError22URM_SIG_CAMERA_PREVIEWE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7ac154b068058b72d9ff1f7c3f3e0f35e2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAMERA_PREVIEW</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError22URM_SIG_CAMERA_PREVIEWE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError21URM_SIG_CAMERA_ENCODEE">
+<span id="_CPPv3N19PhonyNameDueToError21URM_SIG_CAMERA_ENCODEE"></span><span id="_CPPv2N19PhonyNameDueToError21URM_SIG_CAMERA_ENCODEE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7a830fb88ed8908b9d684269c761c56cc0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAMERA_ENCODE</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError21URM_SIG_CAMERA_ENCODEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError35URM_SIG_CAMERA_ENCODE_MULTI_STREAMSE">
+<span id="_CPPv3N19PhonyNameDueToError35URM_SIG_CAMERA_ENCODE_MULTI_STREAMSE"></span><span id="_CPPv2N19PhonyNameDueToError35URM_SIG_CAMERA_ENCODE_MULTI_STREAMSE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7a0f91bff961f046b7aa2d756760c1e105"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_CAMERA_ENCODE_MULTI_STREAMS</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError35URM_SIG_CAMERA_ENCODE_MULTI_STREAMSE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError21URM_SIG_ENCODE_DECODEE">
+<span id="_CPPv3N19PhonyNameDueToError21URM_SIG_ENCODE_DECODEE"></span><span id="_CPPv2N19PhonyNameDueToError21URM_SIG_ENCODE_DECODEE"></span><span class="target" id="UrmPlatformAL_8h_1adf764cbdea00d65edcd07bb9953ad2b7a968e3a45db993735bf958569a19ea645"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">URM_SIG_ENCODE_DECODE</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError21URM_SIG_ENCODE_DECODEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420getResCodeFromStringPKcP6int8_t">
+<span id="_CPPv320getResCodeFromStringPKcP6int8_t"></span><span id="_CPPv220getResCodeFromStringPKcP6int8_t"></span><span id="getResCodeFromString__cCP.int8_tP"></span><span class="target" id="UrmPlatformAL_8h_1a44f66beb5e3a619d8bbc39ff35ea6349"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getResCodeFromString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">strCode</span></span>, <span class="n"><span class="pre">int8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">found</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420getResCodeFromStringPKcP6int8_t" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="UrmPlatformAL_8h_1ac52c609cbea4003c9651468aa7b1ecb7"></span><span class="sig-name descname"><span class="pre">static</span> <span class="pre">ResPair</span> <span class="pre">resCodeMapping</span> <span class="pre">[]</span> <span class="pre">=</span> <span class="pre">{#defineX(name,</span> <span class="pre">value){&quot;RES_SCALE_MIN_FREQ&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00040000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_SCALE_MAX_FREQ&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00040001</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_RATE_LIMIT_US&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00040002</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CPU_ONLINE_PER_CORE&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00040003</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CPU_IDLE_DISABLE_ST0&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00010002</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CPU_IDLE_DISABLE_ST1&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00010003</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CPU_IDLE_DISABLE_ST2&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00010004</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_SCHED_UTIL_CLAMP_MIN&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00030000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_SCHED_UTIL_CLAMP_MAX&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00030001</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_SCHED_ENERGY_AWARE&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00030002</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_SCHED_RT_RUNTIME&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00030003</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CPU_DMA_LATENCY&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00010000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_PM_QOS_LATENCY&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00010001</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_DEVFREQ_GPU_MAX&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00050000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_DEVFREQ_GPU_MIN&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00050001</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_DEVFREQ_GPU_POLL_INTV&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00050002</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_DEVFREQ_UFS_MAX&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x000a0000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_DEVFREQ_UFS_MIN&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x000a0001</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_DEVFREQ_UFS_POLL_INTV&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x000a0002</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_IRQ_AFFINE&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x000b0000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_DEF_IRQ_AFFINE&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x000b0001</span> <span class="pre">,},</span>&#160;&#160;&#160; <span class="pre">{&quot;RES_CGRP_MOVE_PID&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_MOVE_TID&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090001</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_RUN_CORES&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090002</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_RUN_CORES_EXCL&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090003</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_FREEZE&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090004</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_LIMIT_CPU_TIME&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090005</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_RUN_WHEN_CPU_IDLE&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090006</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_UCLAMP_MIN&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090007</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_UCLAMP_MAX&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090008</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_REL_CPU_WEIGHT&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090009</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_HIGH_MEM&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x0009000a</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_MAX_MEM&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x0009000b</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_LOW_MEM&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x0009000c</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_MIN_MEM&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x0009000d</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_SWAP_MAX_MEMORY&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x0009000e</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_IO_WEIGHT&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x0009000f</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;RES_CGRP_CPU_LATENCY&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00090011</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;FOCUSED_CGROUP_IDENTIFIER&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000004</span> <span class="pre">,},</span>&#160;&#160;&#160; <span class="pre">{&quot;CLUSTER_LITTLE_ALL_CORES&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000000</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_LITTLE_CORE_0&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000001</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_LITTLE_CORE_1&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000002</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_LITTLE_CORE_2&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000003</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_LITTLE_CORE_3&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000004</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_BIG_ALL_CORES&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000100</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_BIG_CORE_0&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000101</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_BIG_CORE_1&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000102</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_BIG_CORE_2&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000103</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_BIG_CORE_3&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000104</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_PLUS_ALL_CORES&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000200</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_PLUS_CORE_0&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000201</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_PLUS_CORE_1&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000202</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_PLUS_CORE_2&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000203</span> <span class="pre">,},</span>&#160; <span class="pre">{&quot;CLUSTER_PLUS_CORE_3&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000204</span> <span class="pre">,},</span>&#160;&#160;&#160; <span class="pre">{&quot;DEFAULT_SIGNAL_TYPE&quot;,</span> <span class="pre">(uint32_t)</span> <span class="pre">0x00000000</span> <span class="pre">,},}</span></span></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv411SysResource">
+<span id="_CPPv311SysResource"></span><span id="_CPPv211SysResource"></span><span id="SysResource"></span><span class="target" id="structSysResource"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SysResource</span></span></span><a class="headerlink" href="#_CPPv411SysResource" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;UrmPlatformAL.h&gt;</em></div>
+<p>Used to store information regarding Resources / Tunables which need to be Provisioned as part of the tuneResources API. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11SysResource8mResCodeE">
+<span id="_CPPv3N11SysResource8mResCodeE"></span><span id="_CPPv2N11SysResource8mResCodeE"></span><span id="SysResource::mResCode__uint32_t"></span><span class="target" id="structSysResource_1a547486b7dc00085ba938e3234526706d"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mResCode</span></span></span><a class="headerlink" href="#_CPPv4N11SysResource8mResCodeE" title="Link to this definition"></a><br /></dt>
+<dd><p>A uniqued 32-bit (unsigned) identifier for the Resource. </p>
+<p><ul class="simple">
+<li><p>The last 16 bits (17-32) are used to specify the ResId</p></li>
+<li><p>The next 8 bits (9-16) are used to specify the ResType (type of the Resource)</p></li>
+<li><p>In addition for Custom Resources, the MSB must be set to 1 as well </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11SysResource8mResInfoE">
+<span id="_CPPv3N11SysResource8mResInfoE"></span><span id="_CPPv2N11SysResource8mResInfoE"></span><span id="SysResource::mResInfo__int32_t"></span><span class="target" id="structSysResource_1aa7ed699e963bd7e4ae9072a60f52127a"></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mResInfo</span></span></span><a class="headerlink" href="#_CPPv4N11SysResource8mResInfoE" title="Link to this definition"></a><br /></dt>
+<dd><p>Holds Logical Core and Cluster Information: </p>
+<p><ul class="simple">
+<li><p>The last 8 bits (25-32) hold the Logical Core Value</p></li>
+<li><p>The next 8 bits (17-24) hold the Logical Cluster Value </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11SysResource13mOptionalInfoE">
+<span id="_CPPv3N11SysResource13mOptionalInfoE"></span><span id="_CPPv2N11SysResource13mOptionalInfoE"></span><span id="SysResource::mOptionalInfo__int32_t"></span><span class="target" id="structSysResource_1ae083947a20223d9cd10723cbde963a3f"></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mOptionalInfo</span></span></span><a class="headerlink" href="#_CPPv4N11SysResource13mOptionalInfoE" title="Link to this definition"></a><br /></dt>
+<dd><p>Field to hold optional information for Request Processing. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11SysResource10mNumValuesE">
+<span id="_CPPv3N11SysResource10mNumValuesE"></span><span id="_CPPv2N11SysResource10mNumValuesE"></span><span id="SysResource::mNumValues__int32_t"></span><span class="target" id="structSysResource_1a8e1edb5ff3e4c91904666d79d5bc06c7"></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mNumValues</span></span></span><a class="headerlink" href="#_CPPv4N11SysResource10mNumValuesE" title="Link to this definition"></a><br /></dt>
+<dd><p>Number of values to be configured for the Resource, both single-valued and multi-valued Resources are supported. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11SysResource5valueE">
+<span id="_CPPv3N11SysResource5valueE"></span><span id="_CPPv2N11SysResource5valueE"></span><span id="SysResource::value__int32_t"></span><span class="target" id="structSysResource_1a41dca28f9f5b0fdf0a4ba53945ad8de5"></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><a class="headerlink" href="#_CPPv4N11SysResource5valueE" title="Link to this definition"></a><br /></dt>
+<dd><p>Use this field for single Valued Resources. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11SysResource6valuesE">
+<span id="_CPPv3N11SysResource6valuesE"></span><span id="_CPPv2N11SysResource6valuesE"></span><span id="SysResource::values__int32_tP"></span><span class="target" id="structSysResource_1ae14a01147839611697dd6086d41b0917"></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">values</span></span></span><a class="headerlink" href="#_CPPv4N11SysResource6valuesE" title="Link to this definition"></a><br /></dt>
+<dd><p>Use this field for Multi Valued Resources. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11SysResource9mResValueE">
+<span id="_CPPv3N11SysResource9mResValueE"></span><span id="_CPPv2N11SysResource9mResValueE"></span><span id="SysResource::mResValue__SysResource"></span><span class="target" id="structSysResource_1a297a00772e160edf8cfebf6cc33536ae"></span><span class="k"><span class="pre">union</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv411SysResource" title="SysResource"><span class="n"><span class="pre">SysResource</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mResValue</span></span></span><a class="headerlink" href="#_CPPv4N11SysResource9mResValueE" title="Link to this definition"></a><br /></dt>
+<dd><p>The value to be Configured for this Resource Node. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv47ResPair">
+<span id="_CPPv37ResPair"></span><span id="_CPPv27ResPair"></span><span id="ResPair"></span><span class="target" id="structResPair"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ResPair</span></span></span><a class="headerlink" href="#_CPPv47ResPair" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;UrmPlatformAL.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7ResPair4nameE">
+<span id="_CPPv3N7ResPair4nameE"></span><span id="_CPPv2N7ResPair4nameE"></span><span id="ResPair::name__cCP"></span><span class="target" id="structResPair_1a2b338aa479caafcf71a72518eba8f4c5"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><a class="headerlink" href="#_CPPv4N7ResPair4nameE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7ResPair4codeE">
+<span id="_CPPv3N7ResPair4codeE"></span><span id="_CPPv2N7ResPair4codeE"></span><span id="ResPair::code__uint32_t"></span><span class="target" id="structResPair_1a200653d2b0de634685964e5c3bc177e1"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">code</span></span></span><a class="headerlink" href="#_CPPv4N7ResPair4codeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="client.html" class="btn btn-neutral float-left" title="Client API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="extensions.html" class="btn btn-neutral float-right" title="Extensions API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Qualcomm Technologies, Inc. and/or its subsidiaries.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

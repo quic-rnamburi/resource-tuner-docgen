@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signals Guide &mdash; Userspace Resource Manager API Documentation v0.4</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=eb12ad84" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=6cc4e9c0"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extensions Usage" href="extensions.html" />
+    <link rel="prev" title="Tune Requests" href="requests.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Userspace Resource Manager
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/client.html">Client API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/platform.html">Platform Abstraction Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/extensions.html">Extensions API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="requests.html">Tune Requests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Signals Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-add-a-custom-resource">1. How to add a custom resource</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-resource-config-file-with-two-resources">Sample Resource config file with two resources.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes-on-resource-indexing">Notes on Resource Indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-override-the-resource-tune-and-untune-functionalities">2. How to override the Resource tune and untune functionalities.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-add-init-configs">3. How to add init configs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-cgroup-config">Sample Cgroup config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-enforce-cpu-architecture-details">4. How to enforce CPU architecture details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-device-config-file">Sample Device Config file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-add-a-new-property">5. How to add a new Property</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-properties-config-file">Sample Properties config file.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-create-a-resource-opcode-rescode-and-signal-opcode-sigcode">6. How to create a Resource Opcode (ResCode) and Signal Opcode (SigCode)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Client CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Userspace Resource Manager</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Signals Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guide/signals.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="signals-guide">
+<h1>Signals Guide<a class="headerlink" href="#signals-guide" title="Link to this heading"></a></h1>
+<p>\page usage General Usage Guide</p>
+<section id="how-to-add-a-custom-resource">
+<h2>1. How to add a custom resource<a class="headerlink" href="#how-to-add-a-custom-resource" title="Link to this heading"></a></h2>
+<p>Resource tuner is configured with a default set of <a class="reference internal" href="#../Core/Configs/ResourcesConfig.yaml"><span class="xref myst">Resources</span></a>,
+called the Common Resources. These resources are available at at /etc/urm/common/ResourcesConfig.yaml.
+On top of it, resource-tuner allows the addition of Custom Resources.
+To add Custom Resources, developers can follow one of the following two strategies.</p>
+<ol class="arabic simple">
+<li><p>Add the Custom ResourcesConfig.yaml at /etc/urm/custom. Note the file name must exactly match “ResourcesConfig.yaml”. As part of initialization, resource-tuner will check if this file is present, if it is, it will be parsed alongside the Common Resources.</p></li>
+<li><p>The custom Resources file can also be placed in a different location other than /etc/urm/custom. This can be done through Resource Tuner’s Extension Interface. For example if the file is present at /opt/custom/ResourcesConfig.yaml, then the URM_REGISTER_CONFIG macro can be used as follows:</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">URM_REGISTER_CONFIG</span><span class="p">(</span><span class="n">RESOURCE_CONFIG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/opt/custom/ResourcesConfig.yaml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will indicate to resource-tuner, that Custom Resources are present at the above specified location so that they can be parsed as part of initialization.</p>
+<p>Note:\n</p>
+<ol class="arabic simple">
+<li><p>If Custom Resources are provided, then the Common and Custom Resources shall be merged together in a unified tunable Resources dataset. If a resource specified in the Custom Resource Config has the exact same ResType and ResID as one in Common Resource Config, then the latter shall be overridden.</p></li>
+<li><p>The Custom Resource Config file must have exactly the same structure as the Common Resource Config file, refer the following example on how to structure the Config files:</p></li>
+</ol>
+<section id="sample-resource-config-file-with-two-resources">
+<h3>Sample Resource config file with two resources.<a class="headerlink" href="#sample-resource-config-file-with-two-resources" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ResourceConfigs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ResType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x03&quot;</span>
+<span class="w">    </span><span class="nt">ResID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x0000&quot;</span>
+<span class="w">    </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SCHED_UTIL_CLAMP_MIN&quot;</span>
+<span class="w">    </span><span class="nt">Path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/proc/sys/kernel/sched_util_clamp_min&quot;</span>
+<span class="w">    </span><span class="nt">Supported</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">HighThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">LowThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">Permissions</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;third_party&quot;</span>
+<span class="w">    </span><span class="nt">Modes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;display_on&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;doze&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">Policy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;lower_is_better&quot;</span>
+<span class="w">    </span><span class="nt">ApplyType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;global&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ResType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x03&quot;</span>
+<span class="w">    </span><span class="nt">ResID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x0001&quot;</span>
+<span class="w">    </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SCHED_UTIL_CLAMP_MAX&quot;</span>
+<span class="w">    </span><span class="nt">Path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/proc/sys/kernel/sched_util_clamp_max&quot;</span>
+<span class="w">    </span><span class="nt">Supported</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">HighThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">LowThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">Permissions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">third_party</span>
+<span class="w">    </span><span class="nt">Modes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;display_on&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;doze&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">Policy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">higher_is_better</span>
+<span class="w">    </span><span class="nt">ApplyType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;global&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="notes-on-resource-indexing">
+<h3>Notes on Resource Indexing<a class="headerlink" href="#notes-on-resource-indexing" title="Link to this heading"></a></h3>
+<p>Resource Tuner implements a System Independent Layer to make Resource Indexing consistent. Each Resource is uniquely identified by a unsigned 32 bit integer, called ResCode.
+This integer is a combination of:</p>
+<ul class="simple">
+<li><p>ResID (last 16 bits, 17 - 32)</p></li>
+<li><p>ResType (next 8 bits, 9 - 16)</p></li>
+<li><p>Customer Specific Bit (1 bit, 31, i.e. MSB)</p></li>
+</ul>
+<p>The Customer Specific Bit needs to be set to “1” in case of Custom Resources.
+For example, if a custom resource has been specified with the ResID: “0x00dd” and ResType: “0x9f”, then the resultant ResCode will be: 0x809f00dd
+Notice the MSB has been set to 1.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="how-to-override-the-resource-tune-and-untune-functionalities">
+<h2>2. How to override the Resource tune and untune functionalities.<a class="headerlink" href="#how-to-override-the-resource-tune-and-untune-functionalities" title="Link to this heading"></a></h2>
+<p>Using Resource Tuner’s Extension interface, the developer can modify the default Resource tune and untune functionalities. Resource tuner provides the default tune and untune functions. However, developer can customize these behaviours.
+Refer: Plugin.cpp in Examples Tab for usage guidance</p>
+</section>
+<hr class="docutils" />
+<section id="how-to-add-init-configs">
+<h2>3. How to add init configs<a class="headerlink" href="#how-to-add-init-configs" title="Link to this heading"></a></h2>
+<p>Resource tuner supports Cgroups as well, InitConfig.yaml file is used to specify the Cgroups which need to created during resource-tuner initialization.
+Developer can supply additional init configs via /etc/urm/custom/InitConfig.yaml</p>
+<section id="sample-cgroup-config">
+<h3>Sample Cgroup config<a class="headerlink" href="#sample-cgroup-config" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">InitConfigs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">CgroupsInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;camera-cgroup&quot;</span>
+<span class="w">      </span><span class="nt">ID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="how-to-enforce-cpu-architecture-details">
+<h2>4. How to enforce CPU architecture details<a class="headerlink" href="#how-to-enforce-cpu-architecture-details" title="Link to this heading"></a></h2>
+<p>CPU architecture refers to</p>
+<ul class="simple">
+<li><p>No of clusters in the system</p></li>
+<li><p>No of cores in the each cluster</p></li>
+<li><p>Logical Cluster ID to physical Cluster ID mapping</p></li>
+</ul>
+<p>Resource Tuner detects the CPU architecture based on cpu_capacity.
+Developer can override this by providing the CPU architecture details via TargetConfig.yaml file.
+This file is expected at the location: /etc/urm/custom/TargetConfig.yaml</p>
+<section id="sample-device-config-file">
+<h3>Sample Device Config file<a class="headerlink" href="#sample-device-config-file" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">TargetConfig</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">TargetName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QCS9100</span>
+<span class="w">    </span><span class="nt">ClusterInfo</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LgcId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LgcId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LgcId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LgcId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+<span class="w">    </span><span class="nt">ClusterSpread</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">NumCores</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">        </span><span class="nt">NumCores</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+<span class="w">        </span><span class="nt">NumCores</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">PhyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span>
+<span class="w">        </span><span class="nt">NumCores</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="how-to-add-a-new-property">
+<h2>5. How to add a new Property<a class="headerlink" href="#how-to-add-a-new-property" title="Link to this heading"></a></h2>
+<p>Resource Tuner provides a set of Common Properties that are applicable to all devices. Users can specify their own custom Properties on top of the common ones.
+Custom Properties can be specified in a yaml file (similar to Common Properties).</p>
+<p>Common Properties are defined by resource-tuner in the /etc/urm/common/PropertiesConfig.yaml file, to add your own custom properties one of the following 2 strategies can be followed:</p>
+<ol class="arabic simple">
+<li><p>Add the Custom PropertiesConfig.yaml at /etc/urm/custom. Note the file name must exactly match “PropertiesConfig.yaml”. As part of initialization, resource-tuner will check if this file is present, if it is, it will be parsed alongside the Common Properties.</p></li>
+<li><p>The custom Properties file can also be placed in a different location other than /etc/urm/custom/. This can be done through Resource Tuner’s Extension Interface. For example if the file is present at /opt/custom/PropertiesConfig.yaml, then the URM_REGISTER_CONFIG macro can be used as follows:</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">URM_REGISTER_CONFIG</span><span class="p">(</span><span class="n">PROPERTIES_CONFIG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/opt/custom/PropertiesConfig.yaml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note:
+Each Property is indexed by the Prop Name, if Custom Properties are provided then one of the following scenarios will take place:</p>
+<ul class="simple">
+<li><p>If a Property with the same name already exists (in the Common Properties), the new value will overwrite the older value.</p></li>
+<li><p>If a Property with the same name does not exist (in the Common Properties), then a new Property with the provided Name and Value shall be created and stored in the Property Registry.</p></li>
+</ul>
+<section id="sample-properties-config-file">
+<h3>Sample Properties config file.<a class="headerlink" href="#sample-properties-config-file" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">PropertyConfigs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resource_tuner.penalty.factor</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resource_tuner.reward.factor</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.4&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">urm.logging.level</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">urm.logging.level.exact</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="how-to-create-a-resource-opcode-rescode-and-signal-opcode-sigcode">
+<h2>6. How to create a Resource Opcode (ResCode) and Signal Opcode (SigCode)<a class="headerlink" href="#how-to-create-a-resource-opcode-rescode-and-signal-opcode-sigcode" title="Link to this heading"></a></h2>
+<p>Suppose we would like to tune the following resource</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ResourceConfigs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ResType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0xea&quot;</span>
+<span class="w">    </span><span class="nt">ResID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x11fc&quot;</span>
+<span class="w">    </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A_DEMONSTRATION_RESOURCE&quot;</span>
+<span class="w">    </span><span class="nt">Path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/proc/some_path_to_some_resource/A&quot;</span>
+<span class="w">    </span><span class="nt">Supported</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">Permissions</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;third_party&quot;</span>
+<span class="w">    </span><span class="nt">Modes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;display_on&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;doze&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">Policy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;lower_is_better&quot;</span>
+<span class="w">    </span><span class="nt">ApplyType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;global&quot;</span>
+</pre></div>
+</div>
+<p>The ResCode is an unsigned 32 bit integer composed of two fields:</p>
+<ul class="simple">
+<li><p>ResID (last 16 bits, 17 - 32)</p></li>
+<li><p>ResType (next 8 bits, 9 - 16)</p></li>
+<li><p>Additionally MSB should be set to ‘1’ if customer or other modules or target chipset is providing it’s own custom resource config files, indicating this is a custom resource else it shall be treated as a default resource. This bit doesn’t influence resource processing, just to aid debugging and development.</p></li>
+</ul>
+<p>The above rules are similar for generating SigCode:
+The SigCode is an unsigned 32 bit integer composed of two fields:</p>
+<ul class="simple">
+<li><p>The last 16 bits (17-32) are used to specify the SigID</p></li>
+<li><p>The next 8 bits (9-16) are used to specify the Signal Category</p></li>
+<li><p>In addition for Custom Signals, the MSB must be set to 1 as well</p></li>
+</ul>
+<p>Suppose we would like to tune the following signal</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">SignalConfigs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">SigId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x0008&quot;</span>
+<span class="w">    </span><span class="nt">Category</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x0d&quot;</span>
+<span class="w">    </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEMO_SIGNAL</span>
+<span class="w">    </span><span class="nt">Enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">Permissions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;system&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">Timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50000</span>
+<span class="w">    </span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">ResCode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00090002&quot;</span><span class="p p-Indicator">,</span><span class="nt"> ResInfo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00000000&quot;</span><span class="p p-Indicator">,</span><span class="nt"> Values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="nv">4</span><span class="p p-Indicator">]}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">ResCode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00090009&quot;</span><span class="p p-Indicator">,</span><span class="nt"> ResInfo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00000000&quot;</span><span class="p p-Indicator">,</span><span class="nt"> Values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">170</span><span class="p p-Indicator">]}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">ResCode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00090002&quot;</span><span class="p p-Indicator">,</span><span class="nt"> ResInfo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00000000&quot;</span><span class="p p-Indicator">,</span><span class="nt"> Values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="nv">6</span><span class="p p-Indicator">]}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">ResCode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00090002&quot;</span><span class="p p-Indicator">,</span><span class="nt"> ResInfo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00000000&quot;</span><span class="p p-Indicator">,</span><span class="nt"> Values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="nv">6</span><span class="p p-Indicator">]}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">ResCode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00090009&quot;</span><span class="p p-Indicator">,</span><span class="nt"> ResInfo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00000000&quot;</span><span class="p p-Indicator">,</span><span class="nt"> Values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">150</span><span class="p p-Indicator">]}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">ResCode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00090011&quot;</span><span class="p p-Indicator">,</span><span class="nt"> ResInfo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x00000000&quot;</span><span class="p p-Indicator">,</span><span class="nt"> Values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-20</span><span class="p p-Indicator">]}</span>
+</pre></div>
+</div>
+<p>Treating it as a custom or downstream Signal config (i.e. MSB should be set to 1), the SigCode can be generated as follows:</p>
+<ul class="simple">
+<li><p>The Category is: “0x0d” and</p></li>
+<li><p>The SigID is “0x0008”</p></li>
+</ul>
+<p>Hence, the resulting sigCode for this signal is:</p>
+<p>0x8000080d in hex notation, or
+10000000000000000000100000001101, in binary.</p>
+<hr class="docutils" />
+<p>The macro “CONSTRUCT_SIG_CODE” can be used for generating opcodes directly if the ResType and ResID are known:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sigCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CONSTRUCT_SIG_CODE</span><span class="p">(</span><span class="mh">0x0d</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0008</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the resource is user-defined / custom then the MSB must be set to 1, so that the resource can
+be correctly identified. The CUSTOM function macro achieves this.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sigCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CUSTOM</span><span class="p">(</span><span class="n">CONSTRUCT_SIG_CODE</span><span class="p">(</span><span class="mh">0x0d</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0008</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="requests.html" class="btn btn-neutral float-left" title="Tune Requests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="extensions.html" class="btn btn-neutral float-right" title="Extensions Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Qualcomm Technologies, Inc. and/or its subsidiaries.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

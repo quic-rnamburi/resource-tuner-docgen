@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extensions API Reference &mdash; Userspace Resource Manager API Documentation v0.4</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=eb12ad84" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=6cc4e9c0"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tune Requests" href="../guide/requests.html" />
+    <link rel="prev" title="Platform Abstraction Types" href="platform.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Userspace Resource Manager
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="client.html">Client API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform Abstraction Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extensions API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#c.CONCAT_IMPL"><code class="docutils literal notranslate"><span class="pre">CONCAT_IMPL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.CONCAT"><code class="docutils literal notranslate"><span class="pre">CONCAT</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.URM_REGISTER_RES_APPLIER_CB"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_RES_APPLIER_CB</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.URM_REGISTER_RES_TEAR_CB"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_RES_TEAR_CB</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.URM_REGISTER_CONFIG"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_CONFIG</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c.URM_REGISTER_POST_PROCESS_CB"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_POST_PROCESS_CB</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv425ResourceLifecycleCallback"><code class="docutils literal notranslate"><span class="pre">ResourceLifecycleCallback</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv422PostProcessingCallback"><code class="docutils literal notranslate"><span class="pre">PostProcessingCallback</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv410ConfigType"><code class="docutils literal notranslate"><span class="pre">ConfigType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType15RESOURCE_CONFIGE"><code class="docutils literal notranslate"><span class="pre">RESOURCE_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType17PROPERTIES_CONFIGE"><code class="docutils literal notranslate"><span class="pre">PROPERTIES_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType14SIGNALS_CONFIGE"><code class="docutils literal notranslate"><span class="pre">SIGNALS_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType19EXT_FEATURES_CONFIGE"><code class="docutils literal notranslate"><span class="pre">EXT_FEATURES_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType13TARGET_CONFIGE"><code class="docutils literal notranslate"><span class="pre">TARGET_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType11INIT_CONFIGE"><code class="docutils literal notranslate"><span class="pre">INIT_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType10APP_CONFIGE"><code class="docutils literal notranslate"><span class="pre">APP_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10ConfigType19TOTAL_CONFIGS_COUNTE"><code class="docutils literal notranslate"><span class="pre">TOTAL_CONFIGS_COUNT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv417PostProcessCBData"><code class="docutils literal notranslate"><span class="pre">PostProcessCBData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N17PostProcessCBData4mPidE"><code class="docutils literal notranslate"><span class="pre">mPid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N17PostProcessCBData6mSigIdE"><code class="docutils literal notranslate"><span class="pre">mSigId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N17PostProcessCBData8mSigTypeE"><code class="docutils literal notranslate"><span class="pre">mSigType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N17PostProcessCBData8mNumArgsE"><code class="docutils literal notranslate"><span class="pre">mNumArgs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N17PostProcessCBData5mArgsE"><code class="docutils literal notranslate"><span class="pre">mArgs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N17PostProcessCBData10mHandleAcqE"><code class="docutils literal notranslate"><span class="pre">mHandleAcq</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv410Extensions"><code class="docutils literal notranslate"><span class="pre">Extensions</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions10ExtensionsE8uint32_t6int8_t25ResourceLifecycleCallback"><code class="docutils literal notranslate"><span class="pre">Extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions10ExtensionsE10ConfigTypeNSt6stringE"><code class="docutils literal notranslate"><span class="pre">Extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions10ExtensionsERKNSt6stringE22PostProcessingCallback"><code class="docutils literal notranslate"><span class="pre">Extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions27getResourceApplierCallbacksEv"><code class="docutils literal notranslate"><span class="pre">getResourceApplierCallbacks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions24getResourceTearCallbacksEv"><code class="docutils literal notranslate"><span class="pre">getResourceTearCallbacks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions25getResourceConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getResourceConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions27getPropertiesConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getPropertiesConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions24getSignalsConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getSignalsConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions28getExtFeaturesConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getExtFeaturesConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions23getTargetConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getTargetConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions21getInitConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getInitConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions20getAppConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getAppConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions25getPostProcessingCallbackERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">getPostProcessingCallback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions20mModifiedConfigFilesE"><code class="docutils literal notranslate"><span class="pre">mModifiedConfigFiles</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions25mResourceApplierCallbacksE"><code class="docutils literal notranslate"><span class="pre">mResourceApplierCallbacks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions22mResourceTearCallbacksE"><code class="docutils literal notranslate"><span class="pre">mResourceTearCallbacks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N10Extensions21mPostProcessCallbacksE"><code class="docutils literal notranslate"><span class="pre">mPostProcessCallbacks</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/requests.html">Tune Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/signals.html">Signals Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/extensions.html">Extensions Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/cli.html">Client CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Userspace Resource Manager</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Extensions API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/extensions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="extensions-api-reference">
+<h1>Extensions API Reference<a class="headerlink" href="#extensions-api-reference" title="Link to this heading"></a></h1>
+<p>Header: <code class="docutils literal notranslate"><span class="pre">extensions/Include/Extensions.h</span></code></p>
+<p>Interface for customizing URM behavior at build time: registering custom
+resource applier/teardown callbacks, overriding configuration YAML files,
+and registering post-processing callbacks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Extension macros must be used in the <strong>global scope</strong> of a translation unit.
+They rely on static initialization to register callbacks before <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CONCAT_IMPL">
+<span class="target" id="Extensions_8h_1a2f638cc5ef8de3fc99f684f39719e606"></span><span class="sig-name descname"><span class="n"><span class="pre">CONCAT_IMPL</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">a</span></span>, <span class="n"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.CONCAT_IMPL" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CONCAT">
+<span class="target" id="Extensions_8h_1a88fa737059e67b4b17ec980e5877361e"></span><span class="sig-name descname"><span class="n"><span class="pre">CONCAT</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">a</span></span>, <span class="n"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.CONCAT" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.URM_REGISTER_RES_APPLIER_CB">
+<span class="target" id="Extensions_8h_1a4965dbabda88a28f60016a766ca71035"></span><span class="sig-name descname"><span class="n"><span class="pre">URM_REGISTER_RES_APPLIER_CB</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resCode</span></span>, <span class="n"><span class="pre">resourceApplierCallback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.URM_REGISTER_RES_APPLIER_CB" title="Link to this definition"></a><br /></dt>
+<dd><p>Register a Customer Resource Applier Callback for a particular ResCode. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This macro must be used in the Global Scope. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resCode</strong> – An unsigned 32-bit integer representing the Resource ResCode. </p></li>
+<li><p><strong>resourceApplierCallback</strong> – A function Pointer to the Custom Applier Callback.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.URM_REGISTER_RES_TEAR_CB">
+<span class="target" id="Extensions_8h_1ae207b7b018e8cb02c7de5c241c8af31e"></span><span class="sig-name descname"><span class="n"><span class="pre">URM_REGISTER_RES_TEAR_CB</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">resCode</span></span>, <span class="n"><span class="pre">resourceTearCallback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.URM_REGISTER_RES_TEAR_CB" title="Link to this definition"></a><br /></dt>
+<dd><p>Register a Customer Resource Teardown Callback for a particular ResCode. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This macro must be used in the Global Scope. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resCode</strong> – An unsigned 32-bit integer representing the Resource ResCode. </p></li>
+<li><p><strong>resourceTearCallback</strong> – A function Pointer to the Custom Teardown Callback.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.URM_REGISTER_CONFIG">
+<span class="target" id="Extensions_8h_1a14fde3a1c416a89d751637c431576e2d"></span><span class="sig-name descname"><span class="n"><span class="pre">URM_REGISTER_CONFIG</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">configType</span></span>, <span class="n"><span class="pre">yamlFile</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.URM_REGISTER_CONFIG" title="Link to this definition"></a><br /></dt>
+<dd><p>Register custom Config (YAML) file. This Macro can be used to register Resource Configs File, Signal Configs file and others with Resource Tuner. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This macro must be used in the Global Scope. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>configType</strong> – The type of Config for which the Custom YAML file has to be specified. </p></li>
+<li><p><strong>yamlFile</strong> – File Path of this Config YAML file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.URM_REGISTER_POST_PROCESS_CB">
+<span class="target" id="Extensions_8h_1abc0d802c01b07ad7fbaca36a48de23b0"></span><span class="sig-name descname"><span class="n"><span class="pre">URM_REGISTER_POST_PROCESS_CB</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">identifier</span></span>, <span class="n"><span class="pre">callback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.URM_REGISTER_POST_PROCESS_CB" title="Link to this definition"></a><br /></dt>
+<dd><p>Register post processing callbacks for different workloads and per-process. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This macro must be used in the Global Scope. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>identifier</strong> – The key (string) identifier for the process or workload </p></li>
+<li><p><strong>callback</strong> – The post processing Callback to be registered</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv425ResourceLifecycleCallback">
+<span id="_CPPv325ResourceLifecycleCallback"></span><span id="_CPPv225ResourceLifecycleCallback"></span><span id="ResourceLifecycleCallback"></span><span class="target" id="Extensions_8h_1a76dc8995b6cdb7b7d9a0b1f2e14d2a79"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ResourceLifecycleCallback</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv425ResourceLifecycleCallback" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv422PostProcessingCallback">
+<span id="_CPPv322PostProcessingCallback"></span><span id="_CPPv222PostProcessingCallback"></span><span id="PostProcessingCallback"></span><span class="target" id="Extensions_8h_1a3db39e8a5f97e219eec84c75944347a3"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PostProcessingCallback</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv422PostProcessingCallback" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv410ConfigType">
+<span id="_CPPv310ConfigType"></span><span id="_CPPv210ConfigType"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConfigType</span></span></span><a class="headerlink" href="#_CPPv410ConfigType" title="Link to this definition"></a><br /></dt>
+<dd><p>Different Config (via YAML) Types supported. </p>
+<p>Note, the Config File corresponding to each config type can be altered via the <a class="reference internal" href="#classExtensions"><span class="std std-ref">Extensions</span></a> interface. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType15RESOURCE_CONFIGE">
+<span id="_CPPv3N10ConfigType15RESOURCE_CONFIGE"></span><span id="_CPPv2N10ConfigType15RESOURCE_CONFIGE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9abe131bc76ce9a644dc792ddfead8977b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RESOURCE_CONFIG</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType15RESOURCE_CONFIGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType17PROPERTIES_CONFIGE">
+<span id="_CPPv3N10ConfigType17PROPERTIES_CONFIGE"></span><span id="_CPPv2N10ConfigType17PROPERTIES_CONFIGE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9a6e00a015fa2a8ce07485e424155279d0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PROPERTIES_CONFIG</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType17PROPERTIES_CONFIGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType14SIGNALS_CONFIGE">
+<span id="_CPPv3N10ConfigType14SIGNALS_CONFIGE"></span><span id="_CPPv2N10ConfigType14SIGNALS_CONFIGE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9aff601ce0e03ecc029b61280f13f4bfd8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIGNALS_CONFIG</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType14SIGNALS_CONFIGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType19EXT_FEATURES_CONFIGE">
+<span id="_CPPv3N10ConfigType19EXT_FEATURES_CONFIGE"></span><span id="_CPPv2N10ConfigType19EXT_FEATURES_CONFIGE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9a00b9648b1f0dd4a0bc847c9e97078740"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EXT_FEATURES_CONFIG</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType19EXT_FEATURES_CONFIGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType13TARGET_CONFIGE">
+<span id="_CPPv3N10ConfigType13TARGET_CONFIGE"></span><span id="_CPPv2N10ConfigType13TARGET_CONFIGE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9a286b093dbcd56ea96399f28bc90b8cc3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TARGET_CONFIG</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType13TARGET_CONFIGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType11INIT_CONFIGE">
+<span id="_CPPv3N10ConfigType11INIT_CONFIGE"></span><span id="_CPPv2N10ConfigType11INIT_CONFIGE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9a10b236ef085c6eee12eac090787c37e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">INIT_CONFIG</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType11INIT_CONFIGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType10APP_CONFIGE">
+<span id="_CPPv3N10ConfigType10APP_CONFIGE"></span><span id="_CPPv2N10ConfigType10APP_CONFIGE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9a123cde0e5b4219393f80732d08661ae8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">APP_CONFIG</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType10APP_CONFIGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10ConfigType19TOTAL_CONFIGS_COUNTE">
+<span id="_CPPv3N10ConfigType19TOTAL_CONFIGS_COUNTE"></span><span id="_CPPv2N10ConfigType19TOTAL_CONFIGS_COUNTE"></span><span class="target" id="Extensions_8h_1ac254e872972d56fde0b2d9b767e157a9a57f976b704c8a679757406d9df093e23"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TOTAL_CONFIGS_COUNT</span></span></span><a class="headerlink" href="#_CPPv4N10ConfigType19TOTAL_CONFIGS_COUNTE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv417PostProcessCBData">
+<span id="_CPPv317PostProcessCBData"></span><span id="_CPPv217PostProcessCBData"></span><span id="PostProcessCBData"></span><span class="target" id="structPostProcessCBData"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PostProcessCBData</span></span></span><a class="headerlink" href="#_CPPv417PostProcessCBData" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;Extensions.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17PostProcessCBData4mPidE">
+<span id="_CPPv3N17PostProcessCBData4mPidE"></span><span id="_CPPv2N17PostProcessCBData4mPidE"></span><span id="PostProcessCBData::mPid__pid_t"></span><span class="target" id="structPostProcessCBData_1a341cee0deb8518526b74992c1c80b6db"></span><span class="n"><span class="pre">pid_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mPid</span></span></span><a class="headerlink" href="#_CPPv4N17PostProcessCBData4mPidE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17PostProcessCBData6mSigIdE">
+<span id="_CPPv3N17PostProcessCBData6mSigIdE"></span><span id="_CPPv2N17PostProcessCBData6mSigIdE"></span><span id="PostProcessCBData::mSigId__uint32_t"></span><span class="target" id="structPostProcessCBData_1a5d965a02b0428bc8ff082cbc062ea221"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mSigId</span></span></span><a class="headerlink" href="#_CPPv4N17PostProcessCBData6mSigIdE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17PostProcessCBData8mSigTypeE">
+<span id="_CPPv3N17PostProcessCBData8mSigTypeE"></span><span id="_CPPv2N17PostProcessCBData8mSigTypeE"></span><span id="PostProcessCBData::mSigType__uint32_t"></span><span class="target" id="structPostProcessCBData_1a76a013c0464a3ff6fa70003cbaef9ac1"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mSigType</span></span></span><a class="headerlink" href="#_CPPv4N17PostProcessCBData8mSigTypeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17PostProcessCBData8mNumArgsE">
+<span id="_CPPv3N17PostProcessCBData8mNumArgsE"></span><span id="_CPPv2N17PostProcessCBData8mNumArgsE"></span><span id="PostProcessCBData::mNumArgs__int32_t"></span><span class="target" id="structPostProcessCBData_1ac3651cee7fed597178f1db438b03d9fc"></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mNumArgs</span></span></span><a class="headerlink" href="#_CPPv4N17PostProcessCBData8mNumArgsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17PostProcessCBData5mArgsE">
+<span id="_CPPv3N17PostProcessCBData5mArgsE"></span><span id="_CPPv2N17PostProcessCBData5mArgsE"></span><span id="PostProcessCBData::mArgs__uint32_tP"></span><span class="target" id="structPostProcessCBData_1ae0bd1a484b18cc9ab4a00b56ddefb81d"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mArgs</span></span></span><a class="headerlink" href="#_CPPv4N17PostProcessCBData5mArgsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17PostProcessCBData10mHandleAcqE">
+<span id="_CPPv3N17PostProcessCBData10mHandleAcqE"></span><span id="_CPPv2N17PostProcessCBData10mHandleAcqE"></span><span id="PostProcessCBData::mHandleAcq__int64_t"></span><span class="target" id="structPostProcessCBData_1aafa8578eb083c47c65cec64881fd64ac"></span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mHandleAcq</span></span></span><a class="headerlink" href="#_CPPv4N17PostProcessCBData10mHandleAcqE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv410Extensions">
+<span id="_CPPv310Extensions"></span><span id="_CPPv210Extensions"></span><span id="Extensions"></span><span class="target" id="classExtensions"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Extensions</span></span></span><a class="headerlink" href="#_CPPv410Extensions" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;Extensions.h&gt;</em></div>
+<p><a class="reference internal" href="#classExtensions"><span class="std std-ref">Extensions</span></a>. </p>
+<p>Provides an Interface for Customizing Resource Tuner Behaviour. Through the Extension Interface, Custom Resource Callbacks / Appliers as well as Custom Config Files (for example: Resource Configs or Signal Configs) can be specified. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions10ExtensionsE8uint32_t6int8_t25ResourceLifecycleCallback">
+<span id="_CPPv3N10Extensions10ExtensionsE8uint32_t6int8_t25ResourceLifecycleCallback"></span><span id="_CPPv2N10Extensions10ExtensionsE8uint32_t6int8_t25ResourceLifecycleCallback"></span><span id="Extensions::Extensions__uint32_t.int8_t.ResourceLifecycleCallback"></span><span class="target" id="classExtensions_1a214c5c5fba5a8091e6a2e8cc246bf9cc"></span><span class="sig-name descname"><span class="n"><span class="pre">Extensions</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">resCode</span></span>, <span class="n"><span class="pre">int8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">callbackType</span></span>, <a class="reference internal" href="#_CPPv425ResourceLifecycleCallback" title="ResourceLifecycleCallback"><span class="n"><span class="pre">ResourceLifecycleCallback</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">callback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions10ExtensionsE8uint32_t6int8_t25ResourceLifecycleCallback" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions10ExtensionsE10ConfigTypeNSt6stringE">
+<span id="_CPPv3N10Extensions10ExtensionsE10ConfigTypeNSt6stringE"></span><span id="_CPPv2N10Extensions10ExtensionsE10ConfigTypeNSt6stringE"></span><span id="Extensions::Extensions__ConfigType.ss"></span><span class="target" id="classExtensions_1a2c5331ae3cfae667d9499c76a0ba60ca"></span><span class="sig-name descname"><span class="n"><span class="pre">Extensions</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410ConfigType" title="ConfigType"><span class="n"><span class="pre">ConfigType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">configType</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">yamlFile</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions10ExtensionsE10ConfigTypeNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions10ExtensionsERKNSt6stringE22PostProcessingCallback">
+<span id="_CPPv3N10Extensions10ExtensionsERKNSt6stringE22PostProcessingCallback"></span><span id="_CPPv2N10Extensions10ExtensionsERKNSt6stringE22PostProcessingCallback"></span><span id="Extensions::Extensions__ssCR.PostProcessingCallback"></span><span class="target" id="classExtensions_1abfd233fe70b72d3898fb8c7e3822ceb0"></span><span class="sig-name descname"><span class="n"><span class="pre">Extensions</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">identifier</span></span>, <a class="reference internal" href="#_CPPv422PostProcessingCallback" title="PostProcessingCallback"><span class="n"><span class="pre">PostProcessingCallback</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">callback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions10ExtensionsERKNSt6stringE22PostProcessingCallback" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions27getResourceApplierCallbacksEv">
+<span id="_CPPv3N10Extensions27getResourceApplierCallbacksEv"></span><span id="_CPPv2N10Extensions27getResourceApplierCallbacksEv"></span><span id="Extensions::getResourceApplierCallbacks"></span><span class="target" id="classExtensions_1a135b1bbbc74c0fc7f648387ab24e4e3f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv425ResourceLifecycleCallback" title="ResourceLifecycleCallback"><span class="n"><span class="pre">ResourceLifecycleCallback</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getResourceApplierCallbacks</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions27getResourceApplierCallbacksEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions24getResourceTearCallbacksEv">
+<span id="_CPPv3N10Extensions24getResourceTearCallbacksEv"></span><span id="_CPPv2N10Extensions24getResourceTearCallbacksEv"></span><span id="Extensions::getResourceTearCallbacks"></span><span class="target" id="classExtensions_1aa0c1fcb7de3c13ebc9474c25bdea51ac"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv425ResourceLifecycleCallback" title="ResourceLifecycleCallback"><span class="n"><span class="pre">ResourceLifecycleCallback</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getResourceTearCallbacks</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions24getResourceTearCallbacksEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions25getResourceConfigFilePathEv">
+<span id="_CPPv3N10Extensions25getResourceConfigFilePathEv"></span><span id="_CPPv2N10Extensions25getResourceConfigFilePathEv"></span><span id="Extensions::getResourceConfigFilePath"></span><span class="target" id="classExtensions_1a6ab5938a7db6d832d10ad1d26a8fb991"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getResourceConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions25getResourceConfigFilePathEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions27getPropertiesConfigFilePathEv">
+<span id="_CPPv3N10Extensions27getPropertiesConfigFilePathEv"></span><span id="_CPPv2N10Extensions27getPropertiesConfigFilePathEv"></span><span id="Extensions::getPropertiesConfigFilePath"></span><span class="target" id="classExtensions_1a2dc251aa899ca69199878ee7d7345787"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPropertiesConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions27getPropertiesConfigFilePathEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions24getSignalsConfigFilePathEv">
+<span id="_CPPv3N10Extensions24getSignalsConfigFilePathEv"></span><span id="_CPPv2N10Extensions24getSignalsConfigFilePathEv"></span><span id="Extensions::getSignalsConfigFilePath"></span><span class="target" id="classExtensions_1a9303e9bba79fa2d88b854831f0b7a958"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSignalsConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions24getSignalsConfigFilePathEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions28getExtFeaturesConfigFilePathEv">
+<span id="_CPPv3N10Extensions28getExtFeaturesConfigFilePathEv"></span><span id="_CPPv2N10Extensions28getExtFeaturesConfigFilePathEv"></span><span id="Extensions::getExtFeaturesConfigFilePath"></span><span class="target" id="classExtensions_1af26f3733263a99d3ad5bcb81406eca19"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getExtFeaturesConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions28getExtFeaturesConfigFilePathEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions23getTargetConfigFilePathEv">
+<span id="_CPPv3N10Extensions23getTargetConfigFilePathEv"></span><span id="_CPPv2N10Extensions23getTargetConfigFilePathEv"></span><span id="Extensions::getTargetConfigFilePath"></span><span class="target" id="classExtensions_1a69b6d5901f7a48dd9d4c9756c2182eeb"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTargetConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions23getTargetConfigFilePathEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions21getInitConfigFilePathEv">
+<span id="_CPPv3N10Extensions21getInitConfigFilePathEv"></span><span id="_CPPv2N10Extensions21getInitConfigFilePathEv"></span><span id="Extensions::getInitConfigFilePath"></span><span class="target" id="classExtensions_1a4ea1d96b7d989ceb0da38f4411d74ae0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getInitConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions21getInitConfigFilePathEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions20getAppConfigFilePathEv">
+<span id="_CPPv3N10Extensions20getAppConfigFilePathEv"></span><span id="_CPPv2N10Extensions20getAppConfigFilePathEv"></span><span id="Extensions::getAppConfigFilePath"></span><span class="target" id="classExtensions_1a1fe0b3a929e85d76e433e6f1a3bb5a19"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAppConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions20getAppConfigFilePathEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions25getPostProcessingCallbackERKNSt6stringE">
+<span id="_CPPv3N10Extensions25getPostProcessingCallbackERKNSt6stringE"></span><span id="_CPPv2N10Extensions25getPostProcessingCallbackERKNSt6stringE"></span><span id="Extensions::getPostProcessingCallback__ssCR"></span><span class="target" id="classExtensions_1a5965ae494adb74001e7de39206114073"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422PostProcessingCallback" title="PostProcessingCallback"><span class="n"><span class="pre">PostProcessingCallback</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPostProcessingCallback</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">identifier</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Extensions25getPostProcessingCallbackERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-static-attributes">Private Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions20mModifiedConfigFilesE">
+<span id="_CPPv3N10Extensions20mModifiedConfigFilesE"></span><span id="_CPPv2N10Extensions20mModifiedConfigFilesE"></span><span id="Extensions::mModifiedConfigFiles__std::vector:ss:"></span><span class="target" id="classExtensions_1ad22877c54d0f2223576b2e0528acfc3c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mModifiedConfigFiles</span></span></span><a class="headerlink" href="#_CPPv4N10Extensions20mModifiedConfigFilesE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions25mResourceApplierCallbacksE">
+<span id="_CPPv3N10Extensions25mResourceApplierCallbacksE"></span><span id="_CPPv2N10Extensions25mResourceApplierCallbacksE"></span><span id="Extensions::mResourceApplierCallbacks__std::unordered_map:uint32_t.ResourceLifecycleCallback:"></span><span class="target" id="classExtensions_1af275fd80cde2f9c9f92f917b9968ca03"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv425ResourceLifecycleCallback" title="ResourceLifecycleCallback"><span class="n"><span class="pre">ResourceLifecycleCallback</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mResourceApplierCallbacks</span></span></span><a class="headerlink" href="#_CPPv4N10Extensions25mResourceApplierCallbacksE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions22mResourceTearCallbacksE">
+<span id="_CPPv3N10Extensions22mResourceTearCallbacksE"></span><span id="_CPPv2N10Extensions22mResourceTearCallbacksE"></span><span id="Extensions::mResourceTearCallbacks__std::unordered_map:uint32_t.ResourceLifecycleCallback:"></span><span class="target" id="classExtensions_1a34d3925b6dfdc8568a5272343d8a1fd3"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv425ResourceLifecycleCallback" title="ResourceLifecycleCallback"><span class="n"><span class="pre">ResourceLifecycleCallback</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mResourceTearCallbacks</span></span></span><a class="headerlink" href="#_CPPv4N10Extensions22mResourceTearCallbacksE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Extensions21mPostProcessCallbacksE">
+<span id="_CPPv3N10Extensions21mPostProcessCallbacksE"></span><span id="_CPPv2N10Extensions21mPostProcessCallbacksE"></span><span id="Extensions::mPostProcessCallbacks__std::unordered_map:ss.PostProcessingCallback:"></span><span class="target" id="classExtensions_1a46f62a384b17e478092d843193c0b312"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422PostProcessingCallback" title="PostProcessingCallback"><span class="n"><span class="pre">PostProcessingCallback</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mPostProcessCallbacks</span></span></span><a class="headerlink" href="#_CPPv4N10Extensions21mPostProcessCallbacksE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="platform.html" class="btn btn-neutral float-left" title="Platform Abstraction Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../guide/requests.html" class="btn btn-neutral float-right" title="Tune Requests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Qualcomm Technologies, Inc. and/or its subsidiaries.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
