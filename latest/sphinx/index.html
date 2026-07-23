@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Userspace Resource Manager &mdash; Userspace Resource Manager API Documentation v0.4</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=eb12ad84" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6cc4e9c0"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Userspace Resource Manager
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/client.html">Client API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/platform.html">Platform Abstraction Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/extensions.html">Extensions API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guide/requests.html">Tune Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/signals.html">Signals Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/extensions.html">Extensions Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/cli.html">Client CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Userspace Resource Manager</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Userspace Resource Manager</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="userspace-resource-manager">
+<h1>Userspace Resource Manager<a class="headerlink" href="#userspace-resource-manager" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#public-api-headers">Public API Headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#key-concepts">Key Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#basic-resource-tuning">Basic Resource Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#signal-example">Signal Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/client.html">Client API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/platform.html">Platform Abstraction Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.OPT_WITHMAX"><code class="docutils literal notranslate"><span class="pre">OPT_WITHMAX</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.OPT_WITHMIN"><code class="docutils literal notranslate"><span class="pre">OPT_WITHMIN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.OPT_WITHREL"><code class="docutils literal notranslate"><span class="pre">OPT_WITHREL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.SET_REQUEST_PRIORITY"><code class="docutils literal notranslate"><span class="pre">SET_REQUEST_PRIORITY</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.ADD_ALLOWED_MODE"><code class="docutils literal notranslate"><span class="pre">ADD_ALLOWED_MODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.EXTRACT_REQUEST_PRIORITY"><code class="docutils literal notranslate"><span class="pre">EXTRACT_REQUEST_PRIORITY</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.EXTRACT_ALLOWED_MODES"><code class="docutils literal notranslate"><span class="pre">EXTRACT_ALLOWED_MODES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.EXTRACT_RESOURCE_CORE_VALUE"><code class="docutils literal notranslate"><span class="pre">EXTRACT_RESOURCE_CORE_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.EXTRACT_RESOURCE_CLUSTER_VALUE"><code class="docutils literal notranslate"><span class="pre">EXTRACT_RESOURCE_CLUSTER_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.EXTRACT_RESOURCE_MPAM_VALUE"><code class="docutils literal notranslate"><span class="pre">EXTRACT_RESOURCE_MPAM_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.SET_RESOURCE_CORE_VALUE"><code class="docutils literal notranslate"><span class="pre">SET_RESOURCE_CORE_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.SET_RESOURCE_CLUSTER_VALUE"><code class="docutils literal notranslate"><span class="pre">SET_RESOURCE_CLUSTER_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.SET_RESOURCE_MPAM_VALUE"><code class="docutils literal notranslate"><span class="pre">SET_RESOURCE_MPAM_VALUE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.GET_SIGNAL_ID"><code class="docutils literal notranslate"><span class="pre">GET_SIGNAL_ID</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.GET_SIGNAL_TYPE"><code class="docutils literal notranslate"><span class="pre">GET_SIGNAL_TYPE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.CONSTRUCT_RES_CODE"><code class="docutils literal notranslate"><span class="pre">CONSTRUCT_RES_CODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.CONSTRUCT_SIG_CODE"><code class="docutils literal notranslate"><span class="pre">CONSTRUCT_SIG_CODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.CUSTOM"><code class="docutils literal notranslate"><span class="pre">CUSTOM</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.RES_CODE_LIST"><code class="docutils literal notranslate"><span class="pre">RES_CODE_LIST</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#c.X"><code class="docutils literal notranslate"><span class="pre">X</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv415RequestPriority"><code class="docutils literal notranslate"><span class="pre">RequestPriority</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N15RequestPriority17REQ_PRIORITY_HIGHE"><code class="docutils literal notranslate"><span class="pre">REQ_PRIORITY_HIGH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N15RequestPriority16REQ_PRIORITY_LOWE"><code class="docutils literal notranslate"><span class="pre">REQ_PRIORITY_LOW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N15RequestPriority27NUMBER_OF_RQUEST_PRIORITIESE"><code class="docutils literal notranslate"><span class="pre">NUMBER_OF_RQUEST_PRIORITIES</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv45Modes"><code class="docutils literal notranslate"><span class="pre">Modes</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N5Modes11MODE_RESUMEE"><code class="docutils literal notranslate"><span class="pre">MODE_RESUME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N5Modes12MODE_SUSPENDE"><code class="docutils literal notranslate"><span class="pre">MODE_SUSPEND</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N5Modes9MODE_DOZEE"><code class="docutils literal notranslate"><span class="pre">MODE_DOZE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv411ResCodesDef"><code class="docutils literal notranslate"><span class="pre">ResCodesDef</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18RES_SCALE_MIN_FREQE"><code class="docutils literal notranslate"><span class="pre">RES_SCALE_MIN_FREQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18RES_SCALE_MAX_FREQE"><code class="docutils literal notranslate"><span class="pre">RES_SCALE_MAX_FREQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef17RES_RATE_LIMIT_USE"><code class="docutils literal notranslate"><span class="pre">RES_RATE_LIMIT_US</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef23RES_CPU_ONLINE_PER_COREE"><code class="docutils literal notranslate"><span class="pre">RES_CPU_ONLINE_PER_CORE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST0E"><code class="docutils literal notranslate"><span class="pre">RES_CPU_IDLE_DISABLE_ST0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST1E"><code class="docutils literal notranslate"><span class="pre">RES_CPU_IDLE_DISABLE_ST1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef24RES_CPU_IDLE_DISABLE_ST2E"><code class="docutils literal notranslate"><span class="pre">RES_CPU_IDLE_DISABLE_ST2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MINE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_UTIL_CLAMP_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef24RES_SCHED_UTIL_CLAMP_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_UTIL_CLAMP_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef22RES_SCHED_ENERGY_AWAREE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_ENERGY_AWARE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef20RES_SCHED_RT_RUNTIMEE"><code class="docutils literal notranslate"><span class="pre">RES_SCHED_RT_RUNTIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19RES_CPU_DMA_LATENCYE"><code class="docutils literal notranslate"><span class="pre">RES_CPU_DMA_LATENCY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18RES_PM_QOS_LATENCYE"><code class="docutils literal notranslate"><span class="pre">RES_PM_QOS_LATENCY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_GPU_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19RES_DEVFREQ_GPU_MINE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_GPU_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef25RES_DEVFREQ_GPU_POLL_INTVE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_GPU_POLL_INTV</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_UFS_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19RES_DEVFREQ_UFS_MINE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_UFS_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef25RES_DEVFREQ_UFS_POLL_INTVE"><code class="docutils literal notranslate"><span class="pre">RES_DEVFREQ_UFS_POLL_INTV</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef14RES_IRQ_AFFINEE"><code class="docutils literal notranslate"><span class="pre">RES_IRQ_AFFINE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18RES_DEF_IRQ_AFFINEE"><code class="docutils literal notranslate"><span class="pre">RES_DEF_IRQ_AFFINE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef17RES_CGRP_MOVE_PIDE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MOVE_PID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef17RES_CGRP_MOVE_TIDE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MOVE_TID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18RES_CGRP_RUN_CORESE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_RUN_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef23RES_CGRP_RUN_CORES_EXCLE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_RUN_CORES_EXCL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef15RES_CGRP_FREEZEE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_FREEZE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef23RES_CGRP_LIMIT_CPU_TIMEE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_LIMIT_CPU_TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef26RES_CGRP_RUN_WHEN_CPU_IDLEE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_RUN_WHEN_CPU_IDLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MINE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_UCLAMP_MIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19RES_CGRP_UCLAMP_MAXE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_UCLAMP_MAX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef23RES_CGRP_REL_CPU_WEIGHTE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_REL_CPU_WEIGHT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef17RES_CGRP_HIGH_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_HIGH_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef16RES_CGRP_MAX_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MAX_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef16RES_CGRP_LOW_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_LOW_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef16RES_CGRP_MIN_MEME"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_MIN_MEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef24RES_CGRP_SWAP_MAX_MEMORYE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_SWAP_MAX_MEMORY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18RES_CGRP_IO_WEIGHTE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_IO_WEIGHT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef20RES_CGRP_CPU_LATENCYE"><code class="docutils literal notranslate"><span class="pre">RES_CGRP_CPU_LATENCY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef25FOCUSED_CGROUP_IDENTIFIERE"><code class="docutils literal notranslate"><span class="pre">FOCUSED_CGROUP_IDENTIFIER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef24CLUSTER_LITTLE_ALL_CORESE"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_ALL_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_0E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_1E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_2E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef21CLUSTER_LITTLE_CORE_3E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_LITTLE_CORE_3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef21CLUSTER_BIG_ALL_CORESE"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_ALL_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_0E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_1E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_2E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef18CLUSTER_BIG_CORE_3E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_BIG_CORE_3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef22CLUSTER_PLUS_ALL_CORESE"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_ALL_CORES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_0E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_1E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_2E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19CLUSTER_PLUS_CORE_3E"><code class="docutils literal notranslate"><span class="pre">CLUSTER_PLUS_CORE_3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11ResCodesDef19DEFAULT_SIGNAL_TYPEE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_SIGNAL_TYPE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError16URM_SIG_CAT_TESTE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_TEST</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_GENERICE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_GENERIC</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError22URM_SIG_CAT_MULTIMEDIAE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_MULTIMEDIA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_GAMINGE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_GAMING</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError19URM_SIG_CAT_BROWSERE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_BROWSER</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError18URM_SIG_CAT_CUSTOME"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAT_CUSTOM</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError16URM_SIG_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError24URM_SIG_BROWSER_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_BROWSER_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError21URM_SIG_GAME_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_GAME_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError27URM_SIG_MULTIMEDIA_APP_OPENE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_MULTIMEDIA_APP_OPEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError20URM_SIG_VIDEO_DECODEE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_VIDEO_DECODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError22URM_SIG_CAMERA_PREVIEWE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAMERA_PREVIEW</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError21URM_SIG_CAMERA_ENCODEE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAMERA_ENCODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError35URM_SIG_CAMERA_ENCODE_MULTI_STREAMSE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_CAMERA_ENCODE_MULTI_STREAMS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv4N19PhonyNameDueToError21URM_SIG_ENCODE_DECODEE"><code class="docutils literal notranslate"><span class="pre">URM_SIG_ENCODE_DECODE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv420getResCodeFromStringPKcP6int8_t"><code class="docutils literal notranslate"><span class="pre">getResCodeFromString()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv411SysResource"><code class="docutils literal notranslate"><span class="pre">SysResource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11SysResource8mResCodeE"><code class="docutils literal notranslate"><span class="pre">mResCode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11SysResource8mResInfoE"><code class="docutils literal notranslate"><span class="pre">mResInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11SysResource13mOptionalInfoE"><code class="docutils literal notranslate"><span class="pre">mOptionalInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11SysResource10mNumValuesE"><code class="docutils literal notranslate"><span class="pre">mNumValues</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11SysResource5valueE"><code class="docutils literal notranslate"><span class="pre">value</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11SysResource6valuesE"><code class="docutils literal notranslate"><span class="pre">values</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N11SysResource9mResValueE"><code class="docutils literal notranslate"><span class="pre">mResValue</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform.html#_CPPv47ResPair"><code class="docutils literal notranslate"><span class="pre">ResPair</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N7ResPair4nameE"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/platform.html#_CPPv4N7ResPair4codeE"><code class="docutils literal notranslate"><span class="pre">code</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/extensions.html">Extensions API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#c.CONCAT_IMPL"><code class="docutils literal notranslate"><span class="pre">CONCAT_IMPL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#c.CONCAT"><code class="docutils literal notranslate"><span class="pre">CONCAT</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#c.URM_REGISTER_RES_APPLIER_CB"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_RES_APPLIER_CB</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#c.URM_REGISTER_RES_TEAR_CB"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_RES_TEAR_CB</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#c.URM_REGISTER_CONFIG"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_CONFIG</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#c.URM_REGISTER_POST_PROCESS_CB"><code class="docutils literal notranslate"><span class="pre">URM_REGISTER_POST_PROCESS_CB</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#_CPPv425ResourceLifecycleCallback"><code class="docutils literal notranslate"><span class="pre">ResourceLifecycleCallback</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#_CPPv422PostProcessingCallback"><code class="docutils literal notranslate"><span class="pre">PostProcessingCallback</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#_CPPv410ConfigType"><code class="docutils literal notranslate"><span class="pre">ConfigType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType15RESOURCE_CONFIGE"><code class="docutils literal notranslate"><span class="pre">RESOURCE_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType17PROPERTIES_CONFIGE"><code class="docutils literal notranslate"><span class="pre">PROPERTIES_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType14SIGNALS_CONFIGE"><code class="docutils literal notranslate"><span class="pre">SIGNALS_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType19EXT_FEATURES_CONFIGE"><code class="docutils literal notranslate"><span class="pre">EXT_FEATURES_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType13TARGET_CONFIGE"><code class="docutils literal notranslate"><span class="pre">TARGET_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType11INIT_CONFIGE"><code class="docutils literal notranslate"><span class="pre">INIT_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType10APP_CONFIGE"><code class="docutils literal notranslate"><span class="pre">APP_CONFIG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10ConfigType19TOTAL_CONFIGS_COUNTE"><code class="docutils literal notranslate"><span class="pre">TOTAL_CONFIGS_COUNT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#_CPPv417PostProcessCBData"><code class="docutils literal notranslate"><span class="pre">PostProcessCBData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N17PostProcessCBData4mPidE"><code class="docutils literal notranslate"><span class="pre">mPid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N17PostProcessCBData6mSigIdE"><code class="docutils literal notranslate"><span class="pre">mSigId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N17PostProcessCBData8mSigTypeE"><code class="docutils literal notranslate"><span class="pre">mSigType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N17PostProcessCBData8mNumArgsE"><code class="docutils literal notranslate"><span class="pre">mNumArgs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N17PostProcessCBData5mArgsE"><code class="docutils literal notranslate"><span class="pre">mArgs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N17PostProcessCBData10mHandleAcqE"><code class="docutils literal notranslate"><span class="pre">mHandleAcq</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/extensions.html#_CPPv410Extensions"><code class="docutils literal notranslate"><span class="pre">Extensions</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions10ExtensionsE8uint32_t6int8_t25ResourceLifecycleCallback"><code class="docutils literal notranslate"><span class="pre">Extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions10ExtensionsE10ConfigTypeNSt6stringE"><code class="docutils literal notranslate"><span class="pre">Extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions10ExtensionsERKNSt6stringE22PostProcessingCallback"><code class="docutils literal notranslate"><span class="pre">Extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions27getResourceApplierCallbacksEv"><code class="docutils literal notranslate"><span class="pre">getResourceApplierCallbacks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions24getResourceTearCallbacksEv"><code class="docutils literal notranslate"><span class="pre">getResourceTearCallbacks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions25getResourceConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getResourceConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions27getPropertiesConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getPropertiesConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions24getSignalsConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getSignalsConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions28getExtFeaturesConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getExtFeaturesConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions23getTargetConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getTargetConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions21getInitConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getInitConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions20getAppConfigFilePathEv"><code class="docutils literal notranslate"><span class="pre">getAppConfigFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions25getPostProcessingCallbackERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">getPostProcessingCallback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions20mModifiedConfigFilesE"><code class="docutils literal notranslate"><span class="pre">mModifiedConfigFiles</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions25mResourceApplierCallbacksE"><code class="docutils literal notranslate"><span class="pre">mResourceApplierCallbacks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions22mResourceTearCallbacksE"><code class="docutils literal notranslate"><span class="pre">mResourceTearCallbacks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/extensions.html#_CPPv4N10Extensions21mPostProcessCallbacksE"><code class="docutils literal notranslate"><span class="pre">mPostProcessCallbacks</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guide/requests.html">Tune Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/signals.html">Signals Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide/signals.html#how-to-add-a-custom-resource">1. How to add a custom resource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/signals.html#how-to-override-the-resource-tune-and-untune-functionalities">2. How to override the Resource tune and untune functionalities.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/signals.html#how-to-add-init-configs">3. How to add init configs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/signals.html#how-to-enforce-cpu-architecture-details">4. How to enforce CPU architecture details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/signals.html#how-to-add-a-new-property">5. How to add a new Property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/signals.html#how-to-create-a-resource-opcode-rescode-and-signal-opcode-sigcode">6. How to create a Resource Opcode (ResCode) and Signal Opcode (SigCode)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide/extensions.html">Extensions Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide/extensions.html#making-use-of-extensions-interface">1. Making Use of Extensions Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/extensions.html#applier-and-teardown-callbacks">2. Applier and Teardown Callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/extensions.html#post-processing-callbacks">3. Post-Processing Callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/extensions.html#custom-configs">4. Custom Configs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide/features.html#making-use-of-relay-signals-and-features">1. Making Use of Relay Signals and Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/features.html#defining-feature-init-relay-and-teardown-capabilities">2. Defining feature init, relay and teardown capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/features.html#where-should-the-extfeaturesconfig-yaml-be-placed">3. Where should the ExtFeaturesConfig.yaml be placed?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide/cli.html">Client CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide/cli.html#id1">Client CLI</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+</ul>
+</div>
+<section id="indices-and-tables">
+<h2>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Qualcomm Technologies, Inc. and/or its subsidiaries.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; Userspace Resource Manager API Documentation v0.4</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=eb12ad84" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6cc4e9c0"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="quickstart.html" />
+    <link rel="prev" title="Userspace Resource Manager" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Userspace Resource Manager
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-api-headers">Public API Headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-concepts">Key Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/client.html">Client API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/platform.html">Platform Abstraction Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/extensions.html">Extensions API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guide/requests.html">Tune Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/signals.html">Signals Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/extensions.html">Extensions Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/cli.html">Client CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Userspace Resource Manager</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<p>The <strong>Qualcomm Userspace Resource Manager (URM)</strong> is a system-level framework that enables
+client applications to tune hardware resources and manage device behavior based on workload
+demands.</p>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>URM operates as a client-server architecture:</p>
+<ul class="simple">
+<li><p><strong>Client</strong> — Applications link against <code class="docutils literal notranslate"><span class="pre">libUrmClient.so</span></code> and call the public C APIs
+to request resource tuning, signal relay, or property queries.</p></li>
+<li><p><strong>Server</strong> — A background daemon owns the hardware resource scheduling. It processes
+requests from all clients, applies resource configurations, and manages lifecycle events.</p></li>
+<li><p><strong>Extensions</strong> — OEMs and platform owners can inject custom resource callbacks, YAML
+config overrides, and post-processing callbacks at build time via <code class="docutils literal notranslate"><span class="pre">Extensions.h</span></code>.</p></li>
+</ul>
+</section>
+<section id="public-api-headers">
+<h2>Public API Headers<a class="headerlink" href="#public-api-headers" title="Link to this heading"></a></h2>
+<p>There are exactly three public headers exposed to client applications:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Header</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UrmAPIs.h</span></code></p></td>
+<td><p>Core client API — resource tuning, signal relay, property queries</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UrmPlatformAL.h</span></code></p></td>
+<td><p>Platform abstraction types — <code class="docutils literal notranslate"><span class="pre">SysResource</span></code>, enums, resource/signal code macros</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Extensions.h</span></code></p></td>
+<td><p>Extension interface — register custom applier callbacks and config file overrides</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-concepts">
+<h2>Key Concepts<a class="headerlink" href="#key-concepts" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>Tune Request</strong></dt><dd><p>A request to configure a set of hardware resources for a process or workload.
+Identified by an opaque <code class="docutils literal notranslate"><span class="pre">handle</span></code> returned by <code class="xref c c-func docutils literal notranslate"><span class="pre">tuneResources()</span></code>.
+The caller is responsible for calling <code class="xref c c-func docutils literal notranslate"><span class="pre">untuneResources()</span></code> when done.</p>
+</dd>
+<dt><strong>Signal</strong></dt><dd><p>A discrete event (e.g., launch, touch, rotation) that triggers resource policy changes
+inside URM and its feature modules. Signals are emitted by clients via
+<code class="xref c c-func docutils literal notranslate"><span class="pre">tuneSignal()</span></code> / <code class="xref c c-func docutils literal notranslate"><span class="pre">relaySignal()</span></code>.</p>
+</dd>
+<dt><strong>Resource Code (ResCode)</strong></dt><dd><p>A 32-bit integer identifying a hardware resource (CPU cluster frequency, GPU frequency,
+memory bandwidth, etc.). Use the <code class="docutils literal notranslate"><span class="pre">CONSTRUCT_RES_CODE</span></code> macro from <code class="docutils literal notranslate"><span class="pre">UrmPlatformAL.h</span></code>
+to build a valid ResCode.</p>
+</dd>
+<dt><strong>Modes</strong></dt><dd><p>URM adapts its resource policies based on the device display state (<code class="docutils literal notranslate"><span class="pre">Modes</span></code> enum):
+screen-on, screen-off, and always-on variants.</p>
+</dd>
+</dl>
+</section>
+<section id="versioning">
+<h2>Versioning<a class="headerlink" href="#versioning" title="Link to this heading"></a></h2>
+<p>This documentation covers version <strong>|version|</strong>.
+For changes between versions, see the API reference pages which note deprecated and
+breaking changes using the <code class="docutils literal notranslate"><span class="pre">\deprecated_since</span></code> and <code class="docutils literal notranslate"><span class="pre">\breaking_change</span></code> annotations.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Userspace Resource Manager" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Qualcomm Technologies, Inc. and/or its subsidiaries.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

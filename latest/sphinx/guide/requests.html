@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tune Requests &mdash; Userspace Resource Manager API Documentation v0.4</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=eb12ad84" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=6cc4e9c0"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Signals Guide" href="signals.html" />
+    <link rel="prev" title="Extensions API Reference" href="../api/extensions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Userspace Resource Manager
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/client.html">Client API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/platform.html">Platform Abstraction Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/extensions.html">Extensions API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tune Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Client CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Userspace Resource Manager</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tune Requests</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guide/requests.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tune-requests">
+<h1>Tune Requests<a class="headerlink" href="#tune-requests" title="Link to this heading"></a></h1>
+<p>\page requests_formulation “Tune” Requests Formulation Guide</p>
+<p><strong>API Signature:</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int64_t</span><span class="w"> </span><span class="nf">tuneResources</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span>
+<span class="w">                      </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">prop</span><span class="p">,</span>
+<span class="w">                      </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">numRes</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">SysResource</span><span class="o">*</span><span class="w"> </span><span class="n">resourceList</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The tuneResources API is designed to work will all Resource Classes, i.e. Cluster, Core, CGroup, MPAM etc. Following code snippets illustrate this:</p>
+<ul class="simple">
+<li><p>Cluster Apply Type Resources
+Resources which can have different configured value across different clusters. To tune such a resource, along with the resource “ResCode”, the desired cluster must also be passed, i.e. the cluster on which the value should take effect. Here, logical values are used by Resource Tuner to decouple the calling code from the device specifics.</p></li>
+</ul>
+<p>=&gt; Suppose, we are tuning a single resource as part of the resource. This resource with the ResCode: 0x0002a0be is a Cluster Apply Type Resource. The following example shows how to tune it on the logical cluster ID: 1
+=&gt; Internally, this logical cluster ID will be mapped to the appropriate physical cluster ID, and the configured value will be applied to that node.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SysResource</span><span class="o">*</span><span class="w"> </span><span class="n">resourceList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SysResource</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">SysResource</span><span class="p">));</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0002a0be</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mNumValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">999</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Populate the logical cluster</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SET_RESOURCE_CLUSTER_VALUE</span><span class="p">(</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tuneResources</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">RequestPriority</span><span class="o">::</span><span class="n">REQ_PRIORITY_HIGH</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">resourceList</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// .....</span>
+</pre></div>
+</div>
+<p>Note: Setting the logical cluster ID only effectuates change, if the targeted resource actually has an ApplyType of “cluster” (this can be verified by referring “ResourcesConfig.yaml”).</p>
+<ul class="simple">
+<li><p>Core Apply Type Resources</p></li>
+</ul>
+<p>Resources which can have different configured value on different cores. To tune such a resource, along with the resource “ResCode”, the desired core must also be passed, i.e. the core on which the value should take effect. Here, logical values are used.</p>
+<p>=&gt; Suppose, we are tuning a single resource as part of the resource. This resource with the ResCode: 0x00250dfc is a Core Apply Type Resource. The following example shows how to tune it on 2nd core in the second logical cluster.
+=&gt; Internally, this logical core ID will be mapped to the appropriate physical core ID, and the configured value will be applied to that core.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SysResource</span><span class="o">*</span><span class="w"> </span><span class="n">resourceList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SysResource</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">SysResource</span><span class="p">));</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00250dfc</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mNumValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">800</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Populate the logical cluster</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SET_RESOURCE_CLUSTER_VALUE</span><span class="p">(</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Populate the logical core</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SET_RESOURCE_CORE_VALUE</span><span class="p">(</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tuneResources</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">RequestPriority</span><span class="o">::</span><span class="n">REQ_PRIORITY_HIGH</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">resourceList</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// .....</span>
+</pre></div>
+</div>
+<p>Note: Setting the logical core ID only effectuates change, if the targeted resource actually has an ApplyType of “core” (this can be verified by referring “ResourcesConfig.yaml”).</p>
+<p>To configure a value for all the cores part of a cluster, specify a logical core ID of 0.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// Populate the logical cluster</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SET_RESOURCE_CLUSTER_VALUE</span><span class="p">(</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Set Logical Core ID to 0</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SET_RESOURCE_CORE_VALUE</span><span class="p">(</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResInfo</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The above snippet will apply the request to all the cores (resource nodes) part of the physical cluster corresponding to the logical cluster ID 2.</p>
+<ul class="simple">
+<li><p>CGroup Apply Type Resources</p></li>
+</ul>
+<p>Resources which can have different configured value across different cgroups, for example the node “memory.max” can have different values for cgrpA and cgrpB. To tune such a resource, along with the resource “ResCode”, the desired cgroup identifier must also be passed, i.e. the cgroup on which the value should take effect.</p>
+<p>=&gt; To obtain the correct cgroup identifier, refer the config file “InitConfigs.yaml”, which maps identifiers (integer values) to cgroup names.
+=&gt; Resource Tuner, supports multi-valued resources, and expects the first value to be the cgroup identifier, the following values are treated as values, and can differ according to the resource node.
+=&gt; Internally, this identifier will be used to identify the correct cgroup node to which the configured value should be applied.</p>
+<p>=&gt; Suppose, we are tuning a single resource as part of the resource. This resource with the ResCode: 0x00090007 is a CGroup Apply Type Resource. The following example shows how to tune it for the cgroup with the identifier: 1</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SysResource</span><span class="o">*</span><span class="w"> </span><span class="n">resourceList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SysResource</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">SysResource</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00090007</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mNumValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int32_t</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">55</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tuneResources</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">RequestPriority</span><span class="o">::</span><span class="n">REQ_PRIORITY_HIGH</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">resourceList</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// .....</span>
+</pre></div>
+</div>
+<p>The following example, illustrates how to tune the “cpuset.cpus” node for a particular cgroup</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SysResource</span><span class="o">*</span><span class="w"> </span><span class="n">resourceList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SysResource</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">SysResource</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00090002</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mNumValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int32_t</span><span class="p">[</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mNumValues</span><span class="p">];</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This will update the cpuset.cpus node for the cgroup with identifier: 1, to: “0-1,3”</p>
+<p>The following example, illustrates how to tune the “memory.max” node for a particular cgroup</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SysResource</span><span class="o">*</span><span class="w"> </span><span class="n">resourceList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SysResource</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">SysResource</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0009000b</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mNumValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int32_t</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">resourceList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mResValue</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>A similar strategy can be adopted for other cgroup resources as well.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api/extensions.html" class="btn btn-neutral float-left" title="Extensions API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="signals.html" class="btn btn-neutral float-right" title="Signals Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Qualcomm Technologies, Inc. and/or its subsidiaries.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
