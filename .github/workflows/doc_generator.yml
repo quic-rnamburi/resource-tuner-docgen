@@ -1,9 +1,7 @@
 name: Deploy Doxygen Docs to gh-pages
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # disabled: manual trigger only
 
 jobs:
   deploy-docs:
@@ -17,7 +15,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y doxygen
 
       - name: Generate Doxygen Documentation
-        run: doxygen docs/Doxyfile
+        run: |
+          sed -i "s/^PROJECT_NUMBER\s*=.*/PROJECT_NUMBER = ${{ github.ref_name }}/" docs/Doxyfile
+          doxygen docs/Doxyfile
 
       - name: Deploy to gh-pages branch
         run: |

@@ -1,0 +1,80 @@
+  name: API Documentation
+
+  on:
+    push:
+      tags:
+        - 'v*'
+    workflow_dispatch:
+      inputs:
+        tag:
+          description: 'Tag to build docs for (e.g. v1.0)'
+          required: true
+
+
+  permissions:
+    contents: write
+
+  jobs:
+    build-and-deploy:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Install Doxygen
+          run: sudo apt-get install -y doxygen graphviz
+
+        - name: Generate Doxygen docs
+          run: doxygen Doxyfile
+
+        - name: Deploy versioned docs
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./docs/html
+            destination_dir: ${{ github.event.inputs.tag || github.ref_name }}
+            keep_files: true
+
+        - name: Update latest
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./docs/html
+            destination_dir: latest
+            keep_files: true
+
+        - name: Generate index page
+          run: |
+            # collect all version tags from gh-pages branch
+            git fetch origin gh-pages
+            VERSIONS=$(git ls-tree origin/gh-pages --name-only | grep '^v' | sort -rV)
+
+            cat <<EOF > index.html
+            <!DOCTYPE html>
+            <html>
+            <head><title>${{ github.event.repository.name }} API Docs</title></head>
+            <body>
+              <h1>${{ github.event.repository.name }} API Documentation</h1>
+              <ul>
+                <li><a href="latest/">latest</a></li>
+            EOF
+
+            for v in $VERSIONS; do
+              echo "    <li><a href=\"$v/\">$v</a></li>" >> index.html
+            done
+
+            cat <<EOF >> index.html
+              </ul>
+            </body>
+            </html>
+            EOF
+
+        - name: Deploy index page
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: .
+            include_files: index.html
+            keep_files: true
+
