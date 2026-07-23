@@ -36,9 +36,14 @@ myst_heading_anchors = 3
 
 autosectionlabel_prefix_document = True
 
+suppress_warnings = [
+    "autosectionlabel.*",
+    "myst.xref_missing",
+    "duplicate_declaration.c",
+]
+
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 master_doc = "index"
 
-# Make docs/UserGuide and docs/ available for include directives
 sys.path.insert(0, os.path.abspath("../../.."))

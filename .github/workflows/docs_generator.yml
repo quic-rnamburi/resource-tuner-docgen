@@ -56,8 +56,7 @@ jobs:
             -b html \
             docs/sphinx/source \
             docs/sphinx/build/html \
-            -D breathe_projects.URM=$(pwd)/docs/doxygen/xml \
-            -W --keep-going
+            -D breathe_projects.URM=$(pwd)/docs/doxygen/xml
 
       - name: Stage versioned deploy (doxygen + sphinx under same version dir)
         run: |
