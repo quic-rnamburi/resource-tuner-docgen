@@ -14,6 +14,11 @@ jobs:
       - name: Install Doxygen
         run: sudo apt-get update && sudo apt-get install -y doxygen
 
+      - name: Download doxygen-awesome-css
+        run: |
+          wget -q https://raw.githubusercontent.com/jothepro/doxygen-awesome-css/main/doxygen-awesome.css \
+            -O docs/doxygen-awesome.css
+
       - name: Generate Doxygen Documentation
         run: |
           sed -i "s/^PROJECT_NUMBER\s*=.*/PROJECT_NUMBER = ${{ github.ref_name }}/" docs/Doxyfile
