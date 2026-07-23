@@ -1,0 +1,17 @@
+PROJECT_NAME           = "Userspace Resource Manager"
+PROJECT_NUMBER         =
+PROJECT_BRIEF          = "Qualcomm Userspace Resource Manager Public API"
+OUTPUT_DIRECTORY       = docs/doxygen
+INPUT                  = client/APIs/Include/UrmAPIs.h \
+                         modula/Common/Include/UrmPlatformAL.h \
+                         extensions/Include/Extensions.h
+RECURSIVE              = NO
+EXTRACT_ALL            = YES
+GENERATE_HTML          = NO
+GENERATE_XML           = YES
+XML_OUTPUT             = xml
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = NO
+QUIET                  = YES
+WARNINGS               = YES

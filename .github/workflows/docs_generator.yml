@@ -1,86 +1,177 @@
-  name: API Documentation
+name: API Documentation
 
-  on:
-    push:
-      tags:
-        - 'v*'
-    workflow_dispatch:
-      inputs:
-        tag:
-          description: 'Tag to build docs for (e.g. v1.0)'
-          required: true
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build docs for (e.g. v1.0)'
+        required: true
 
+permissions:
+  contents: write
 
-  permissions:
-    contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-  jobs:
-    build-and-deploy:
-      runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+      - name: Install Doxygen
+        run: sudo apt-get install -y doxygen graphviz
 
-        - name: Install Doxygen
-          run: sudo apt-get install -y doxygen graphviz
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-        - name: Download doxygen-awesome-css
-          run: |
-            wget -q https://raw.githubusercontent.com/jothepro/doxygen-awesome-css/main/doxygen-awesome.css \
-              -O docs/doxygen-awesome.css
+      - name: Install Sphinx dependencies
+        run: pip install -r docs/sphinx/requirements.txt
 
-        - name: Generate Doxygen docs
-          run: |
-            sed -i "s/^PROJECT_NUMBER\s*=.*/PROJECT_NUMBER = ${{ github.event.inputs.tag || github.ref_name }}/" docs/Doxyfile
-            doxygen docs/Doxyfile
+      - name: Download doxygen-awesome-css
+        run: |
+          wget -q https://raw.githubusercontent.com/jothepro/doxygen-awesome-css/main/doxygen-awesome.css \
+            -O docs/doxygen-awesome.css
 
-        - name: Deploy versioned docs
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./docs/html
-            destination_dir: ${{ github.event.inputs.tag || github.ref_name }}
-            keep_files: true
+      - name: Generate Doxygen HTML (existing Doxyfile)
+        run: |
+          VERSION=${{ github.event.inputs.tag || github.ref_name }}
+          sed -i "s/^PROJECT_NUMBER\s*=.*/PROJECT_NUMBER = ${VERSION}/" docs/Doxyfile
+          doxygen docs/Doxyfile
 
-        - name: Update latest
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./docs/html
-            destination_dir: latest
-            keep_files: true
+      - name: Generate Doxygen XML (for Sphinx/Breathe)
+        run: |
+          VERSION=${{ github.event.inputs.tag || github.ref_name }}
+          sed -i "s/^PROJECT_NUMBER\s*=.*/PROJECT_NUMBER = ${VERSION}/" docs/Doxyfile.sphinx
+          doxygen docs/Doxyfile.sphinx
 
-        - name: Generate index page
-          run: |
-            git fetch origin gh-pages
-            VERSIONS=$(git ls-tree origin/gh-pages --name-only | grep '^v' | sort -rV)
+      - name: Build Sphinx docs
+        run: |
+          VERSION=${{ github.event.inputs.tag || github.ref_name }}
+          DOC_VERSION=${VERSION} sphinx-build \
+            -b html \
+            docs/sphinx/source \
+            docs/sphinx/build/html \
+            -D breathe_projects.URM=$(pwd)/docs/doxygen/xml \
+            -W --keep-going
 
-            mkdir -p /tmp/index-deploy
-            cat <<EOF > /tmp/index-deploy/index.html
-            <!DOCTYPE html>
-            <html>
-            <head><title>${{ github.event.repository.name }} API Docs</title></head>
-            <body>
-              <h1>${{ github.event.repository.name }} API Documentation</h1>
-              <ul>
-                <li><a href="latest/">latest</a></li>
-            EOF
+      - name: Stage versioned deploy (doxygen + sphinx under same version dir)
+        run: |
+          VERSION=${{ github.event.inputs.tag || github.ref_name }}
+          mkdir -p /tmp/versioned-deploy/doxygen
+          mkdir -p /tmp/versioned-deploy/sphinx
+          cp -r docs/html/. /tmp/versioned-deploy/doxygen/
+          cp -r docs/sphinx/build/html/. /tmp/versioned-deploy/sphinx/
 
-            for v in $VERSIONS; do
-              echo "    <li><a href=\"$v/\">$v</a></li>" >> /tmp/index-deploy/index.html
-            done
+          cat <<HTMLEOF > /tmp/versioned-deploy/index.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <title>URM ${VERSION} API Docs</title>
+            <style>
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                     max-width: 700px; margin: 60px auto; padding: 0 20px; color: #333; }
+              h1 { border-bottom: 2px solid #0073e6; padding-bottom: 10px; }
+              .cards { display: flex; gap: 24px; margin-top: 32px; }
+              .card { flex: 1; border: 1px solid #ddd; border-radius: 8px; padding: 24px;
+                      text-decoration: none; color: inherit; }
+              .card:hover { border-color: #0073e6; box-shadow: 0 2px 8px rgba(0,115,230,0.15); }
+              .card h2 { color: #0073e6; margin: 0 0 8px; }
+              .card p { margin: 0; color: #666; font-size: 0.9em; }
+            </style>
+          </head>
+          <body>
+            <h1>URM ${VERSION} API Documentation</h1>
+            <div class="cards">
+              <a class="card" href="sphinx/">
+                <h2>Sphinx</h2>
+                <p>Narrative docs + API reference with full user guide, examples, and search.</p>
+              </a>
+              <a class="card" href="doxygen/">
+                <h2>Doxygen</h2>
+                <p>Raw source-extracted API reference with class graphs and file browser.</p>
+              </a>
+            </div>
+          </body>
+          </html>
+          HTMLEOF
 
-            cat <<EOF >> /tmp/index-deploy/index.html
-              </ul>
-            </body>
-            </html>
-            EOF
+      - name: Deploy versioned docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /tmp/versioned-deploy
+          destination_dir: ${{ github.event.inputs.tag || github.ref_name }}
+          keep_files: true
 
-        - name: Deploy index page
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: /tmp/index-deploy
-            keep_files: true
+      - name: Deploy latest
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /tmp/versioned-deploy
+          destination_dir: latest
+          keep_files: true
 
+      - name: Generate root index page
+        run: |
+          git fetch origin gh-pages
+          VERSIONS=$(git ls-tree origin/gh-pages --name-only | grep '^v' | sort -rV)
+
+          mkdir -p /tmp/index-deploy
+          cat <<'HTMLEOF' > /tmp/index-deploy/index.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Userspace Resource Manager API Docs</title>
+            <style>
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                     max-width: 800px; margin: 60px auto; padding: 0 20px; color: #333; }
+              h1 { color: #2c2c2c; border-bottom: 2px solid #0073e6; padding-bottom: 12px; }
+              table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+              th { text-align: left; padding: 10px 12px; background: #f0f4f8;
+                   border-bottom: 2px solid #0073e6; }
+              td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+              a { color: #0073e6; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .badge { background: #0073e6; color: white; font-size: 0.72em;
+                       padding: 2px 8px; border-radius: 12px; vertical-align: middle; }
+            </style>
+          </head>
+          <body>
+            <h1>Userspace Resource Manager API Documentation</h1>
+            <table>
+              <thead>
+                <tr><th>Version</th><th>Sphinx</th><th>Doxygen</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>latest</strong> <span class="badge">latest</span></td>
+                  <td><a href="latest/sphinx/">View</a></td>
+                  <td><a href="latest/doxygen/">View</a></td>
+                </tr>
+          HTMLEOF
+
+          for v in $VERSIONS; do
+            echo "        <tr><td><strong>${v}</strong></td><td><a href=\"${v}/sphinx/\">View</a></td><td><a href=\"${v}/doxygen/\">View</a></td></tr>" >> /tmp/index-deploy/index.html
+          done
+
+          cat <<'HTMLEOF' >> /tmp/index-deploy/index.html
+              </tbody>
+            </table>
+          </body>
+          </html>
+          HTMLEOF
+
+      - name: Deploy root index page
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /tmp/index-deploy
+          keep_files: true

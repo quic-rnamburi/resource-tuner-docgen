@@ -1,0 +1,15 @@
+/* Custom branding tweaks for URM API docs */
+
+.wy-nav-content {
+    max-width: 1200px;
+}
+
+/* Slightly darker code blocks for readability */
+.highlight {
+    background: #f4f4f4;
+}
+
+/* Make function signatures wrap better */
+dl.c > dt {
+    word-break: break-word;
+}
