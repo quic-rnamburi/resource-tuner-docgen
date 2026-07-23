@@ -25,8 +25,15 @@
         - name: Install Doxygen
           run: sudo apt-get install -y doxygen graphviz
 
+        - name: Download doxygen-awesome-css
+          run: |
+            wget -q https://raw.githubusercontent.com/jothepro/doxygen-awesome-css/main/doxygen-awesome.css \
+              -O docs/doxygen-awesome.css
+
         - name: Generate Doxygen docs
-          run: doxygen Doxyfile
+          run: |
+            sed -i "s/^PROJECT_NUMBER\s*=.*/PROJECT_NUMBER = ${{ github.event.inputs.tag || github.ref_name }}/" docs/Doxyfile
+            doxygen docs/Doxyfile
 
         - name: Deploy versioned docs
           uses: peaceiris/actions-gh-pages@v3
