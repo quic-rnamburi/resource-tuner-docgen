@@ -53,11 +53,11 @@
 
         - name: Generate index page
           run: |
-            # collect all version tags from gh-pages branch
             git fetch origin gh-pages
             VERSIONS=$(git ls-tree origin/gh-pages --name-only | grep '^v' | sort -rV)
 
-            cat <<EOF > index.html
+            mkdir -p /tmp/index-deploy
+            cat <<EOF > /tmp/index-deploy/index.html
             <!DOCTYPE html>
             <html>
             <head><title>${{ github.event.repository.name }} API Docs</title></head>
@@ -68,10 +68,10 @@
             EOF
 
             for v in $VERSIONS; do
-              echo "    <li><a href=\"$v/\">$v</a></li>" >> index.html
+              echo "    <li><a href=\"$v/\">$v</a></li>" >> /tmp/index-deploy/index.html
             done
 
-            cat <<EOF >> index.html
+            cat <<EOF >> /tmp/index-deploy/index.html
               </ul>
             </body>
             </html>
@@ -81,7 +81,6 @@
           uses: peaceiris/actions-gh-pages@v3
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: .
-            include_files: index.html
+            publish_dir: /tmp/index-deploy
             keep_files: true
 
